@@ -1,0 +1,149 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f0f4f8; /* Light cool background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Header Styling */
+h2 {
+    text-align: center;
+    color: #2c3e50; /* Dark blue-gray for text */
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* Form Container */
+form {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #e0e0e0;
+}
+
+/* Form Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    color: #2c3e50;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #3498db; /* Bright blue for focus */
+    transform: translateY(-3px);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.4);
+    outline: none;
+}
+
+/* Submit Button Styling */
+input[type="submit"] {
+    width: 100%;
+    padding: 18px;
+    background-color: #3498db; /* Sky blue for the button */
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #2980b9; /* Darker blue when hovered */
+    transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+form {
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    form {
+        padding: 25px;
+        width: 85%;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.6em;
+    }
+
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+        font-size: 14px;
+    }
+}
+
+/* Additional Visual Effects */
+input[type="text"]:not(:focus),
+input[type="email"]:not(:focus),
+input[type="password"]:not(:focus) {
+    transition: background-color 0.3s ease;
+}
+
+input[type="text"]:not(:focus),
+input[type="email"]:not(:focus),
+input[type="password"]:not(:focus) {
+    background-color: #f1f1f1; /* Light gray background when not focused */
+}
