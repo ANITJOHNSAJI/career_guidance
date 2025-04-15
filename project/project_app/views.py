@@ -17,6 +17,9 @@ def index(request):
 def adminhome(request):
     return render(request,'adminhome.html')
 
+def category(request):
+    return render(request, 'category.html')
+
 def usersignup(request):
     if request.method == "POST":
         email = request.POST.get('email')
@@ -38,6 +41,9 @@ def usersignup(request):
             return redirect('userlogin') 
 
     return render(request, "register.html")
+
+def userform(request):
+    return render(request, 'userform.html')
 
 def userlogin(request):
     if request.user.is_authenticated:  # Instead of checking session directly
