@@ -17,8 +17,11 @@ def index(request):
 def adminhome(request):
     return render(request,'adminhome.html')
 
-def category(request):
-    return render(request, 'category.html')
+def add(request):
+    return render(request, 'add.html')
+
+def userlist(request):
+    return render(request,'userlist.html')
 
 def usersignup(request):
     if request.method == "POST":
