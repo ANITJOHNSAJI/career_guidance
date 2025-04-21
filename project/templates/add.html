@@ -13,7 +13,21 @@
         <a href=""><button>User List</button></a>
         <a href="{% url 'logout' %}"><button>Logout</button></a>
     </nav>
-    <h1>Add Category</h1>
+    <h1>ADD CARD</h1>
+    <form action="">
+        Title: <input type="text" name="title"><br>
+        Description:    <textarea name="description"></textarea><br>
+        Description2:   <textarea name="description2"></textarea><br>
+        Interested: 
+         <!-- <label for="type">Type</label> -->
+        <select name="type" id="type">
+            <option value="course">study</option>
+            <option value="job">job</option>
+       >
+        </select>
+    
+        <input type="submit">
+    </form>
     
 </body>
 </html>
