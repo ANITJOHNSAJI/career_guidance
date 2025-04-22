@@ -5,9 +5,9 @@ from django.conf import settings
 from project_app import views
 
 urlpatterns = [
-    path('userlogin', views.userlogin,name='userlogin'),
+    path('', views.userlogin, name='userlogin'),
     path('signup',views.usersignup,name='usersignup'),
-    path('',views.index,name='index'),
+    path('index',views.index,name='index'),
     path('forgotpassword',views.getusername,name='forgotpassword'),
     path('verifyotp',views.verifyotp,name='verifyotp'),
     path('passwordreset',views.passwordreset,name='passwordreset'),
