@@ -23,6 +23,9 @@ def add(request):
 def userlist(request):
     return render(request,'userlist.html')
 
+def profile(request):
+    return render(request, 'profile.html')
+
 def usersignup(request):
     if request.method == "POST":
         email = request.POST.get('email')

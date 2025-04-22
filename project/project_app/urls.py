@@ -15,6 +15,7 @@ urlpatterns = [
     path('adminhome/', views.adminhome, name='adminhome'),
     path('add/', views.add, name='add'),
     path('userform/', views.userform, name='userform'),
-    path('userlist/',views.userlist,name='userlist')
+    path('userlist/',views.userlist,name='userlist'),
+    path('profile/',views.profile,name='profile')
   
 ]
