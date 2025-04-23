@@ -18,15 +18,15 @@ body {
 }
 
 /* Title Styling */
-h1 {
-    font-size: 3.5rem;
+h2 {
+    font-size: 3rem;
     background: linear-gradient(90deg, #1de9b6, #00bfae); /* Teal to turquoise gradient */
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 6px;
+    letter-spacing: 4px;
     margin-bottom: 50px;
     font-weight: bold;
     position: relative;
@@ -42,26 +42,22 @@ h1 {
     }
 }
 
-/* Container */
-div {
+/* Container Styling */
+form {
     background: rgba(255, 255, 255, 0.95); /* Light background with opacity */
     padding: 40px 50px;
     border-radius: 15px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 450px; /* Adjust width as needed */
     animation: slideIn 1s ease-out;
-}
-
-/* Form Styling */
-form {
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
 /* Input Fields Styling */
-input[type="text"], input[type="password"] {
+input[type="number"] {
     padding: 15px;
     border-radius: 10px;
     border: 2px solid #0f3443; /* Dark teal border */
@@ -72,7 +68,7 @@ input[type="text"], input[type="password"] {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
+input[type="number"]:focus {
     border-color: #34e89e; /* Green color on focus */
     background-color: #ffffff;
     box-shadow: 0 6px 20px rgba(52, 232, 158, 0.3);
@@ -102,42 +98,7 @@ input[type="submit"]:active {
     transform: translateY(2px);
 }
 
-/* Links Styling */
-a {
-    text-decoration: none;
-    color: #0f3443; /* Dark teal */
-    font-size: 1.1rem;
-    text-align: center;
-    display: block;
-    margin-top: 20px;
-    transition: color 0.3s ease;
-    font-weight: bold;
-}
-
-a:hover {
-    color: #34e89e; /* Green color on hover */
-}
-
-/* Error Message Styling */
-p {
-    color: #f44336; /* Bright Red for error */
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 15px;
-    opacity: 0;
-    animation: fadeIn 2s ease-out forwards;
-}
-
 /* Keyframes for Animations */
-@keyframes textGlow {
-    0% {
-        text-shadow: 0 0 15px rgba(52, 232, 158, 0.5), 0 0 30px rgba(52, 232, 158, 0.7);
-    }
-    100% {
-        text-shadow: 0 0 30px rgba(52, 232, 158, 1), 0 0 60px rgba(52, 232, 158, 0.9);
-    }
-}
-
 @keyframes slideIn {
     0% {
         transform: translateY(50px);
@@ -149,41 +110,28 @@ p {
     }
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
 /* Media Queries for Responsiveness */
 @media (max-width: 600px) {
-    h1 {
+    h2 {
         font-size: 2.5rem;
     }
 
-    div {
+    form {
         padding: 30px;
         width: 90%;
     }
 
-    input[type="text"], input[type="password"], input[type="submit"] {
+    input[type="number"], input[type="submit"] {
         padding: 12px;
-    }
-
-    a {
-        font-size: 1rem;
     }
 }
 
 @media (max-width: 400px) {
-    h1 {
+    h2 {
         font-size: 2rem;
     }
 
-    div {
+    form {
         padding: 20px;
     }
 }

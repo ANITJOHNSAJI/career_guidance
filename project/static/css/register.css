@@ -1,149 +1,193 @@
-/* Global Styles */
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
 }
 
+/* Body */
 body {
-    background-color: #f0f4f8; /* Light cool background */
+    font-family: 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #34e89e 0%, #0f3443 100%); /* Fresh green to deep teal gradient */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    font-size: 16px;
+    overflow: hidden;
+    color: #fff;
 }
 
-/* Header Styling */
+/* Title Styling */
 h2 {
+    font-size: 3.5rem;
+    background: linear-gradient(90deg, #1de9b6, #00bfae); /* Teal to turquoise gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     text-align: center;
-    color: #2c3e50; /* Dark blue-gray for text */
-    font-size: 2.5em;
-    margin-bottom: 40px;
-    letter-spacing: 1px;
-    font-weight: 500;
     text-transform: uppercase;
+    letter-spacing: 6px;
+    margin-bottom: 50px;
+    font-weight: bold;
+    position: relative;
+    animation: textGlow 3s ease-in-out infinite alternate;
 }
 
-/* Form Container */
-form {
-    background-color: #fff;
-    padding: 40px;
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 15px rgba(52, 232, 158, 0.5), 0 0 30px rgba(52, 232, 158, 0.7);
+    }
+    100% {
+        text-shadow: 0 0 30px rgba(52, 232, 158, 1), 0 0 60px rgba(52, 232, 158, 0.9);
+    }
+}
+
+/* Container */
+div {
+    background: rgba(255, 255, 255, 0.95); /* Light background with opacity */
+    padding: 40px 50px;
     border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 450px;
-    transition: all 0.3s ease-in-out;
-    border: 1px solid #e0e0e0;
+    max-width: 600px; /* Increased width from 400px to 600px */
+    animation: slideIn 1s ease-out;
 }
 
-/* Form Input Fields */
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Input Fields Styling */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 100%;
-    padding: 18px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    color: #2c3e50;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #0f3443; /* Dark teal border */
+    font-size: 1rem;
+    background-color: #e1f1e8; /* Light mint background */
+    color: #333;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-    border-color: #3498db; /* Bright blue for focus */
-    transform: translateY(-3px);
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.4);
+    border-color: #34e89e; /* Green color on focus */
+    background-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(52, 232, 158, 0.3);
     outline: none;
 }
 
 /* Submit Button Styling */
 input[type="submit"] {
-    width: 100%;
-    padding: 18px;
-    background-color: #3498db; /* Sky blue for the button */
+    padding: 15px;
+    font-size: 1.2rem;
     border: none;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 18px;
+    background-color: #34e89e; /* Soft green */
+    color: white;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 input[type="submit"]:hover {
-    background-color: #2980b9; /* Darker blue when hovered */
-    transform: translateY(-3px);
+    background-color: #28b57b; /* Darker green on hover */
+    transform: translateY(-4px);
 }
 
-/* Animations */
-@keyframes fadeInUp {
+input[type="submit"]:active {
+    transform: translateY(2px);
+}
+
+/* Links Styling */
+a {
+    text-decoration: none;
+    color: #0f3443; /* Dark teal */
+    font-size: 1.1rem;
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    transition: color 0.3s ease;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #34e89e; /* Green color on hover */
+}
+
+/* Error Message Styling */
+p {
+    color: #f44336; /* Bright Red for error */
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 15px;
+    opacity: 0;
+    animation: fadeIn 2s ease-out forwards;
+}
+
+/* Keyframes for Animations */
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 15px rgba(52, 232, 158, 0.5), 0 0 30px rgba(52, 232, 158, 0.7);
+    }
+    100% {
+        text-shadow: 0 0 30px rgba(52, 232, 158, 1), 0 0 60px rgba(52, 232, 158, 0.9);
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: translateY(30px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
-form {
-    animation: fadeInUp 1s ease-in-out;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    form {
-        padding: 25px;
-        width: 85%;
-    }
-
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
     h2 {
-        font-size: 2em;
+        font-size: 2.5rem;
     }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="submit"] {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    h2 {
-        font-size: 1.6em;
-    }
-
-    form {
-        padding: 20px;
+    div {
+        padding: 30px;
         width: 90%;
     }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="submit"] {
-        font-size: 14px;
+    input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
+        padding: 12px;
+    }
+
+    a {
+        font-size: 1rem;
     }
 }
 
-/* Additional Visual Effects */
-input[type="text"]:not(:focus),
-input[type="email"]:not(:focus),
-input[type="password"]:not(:focus) {
-    transition: background-color 0.3s ease;
-}
+@media (max-width: 400px) {
+    h2 {
+        font-size: 2rem;
+    }
 
-input[type="text"]:not(:focus),
-input[type="email"]:not(:focus),
-input[type="password"]:not(:focus) {
-    background-color: #f1f1f1; /* Light gray background when not focused */
+    div {
+        padding: 20px;
+    }
 }
