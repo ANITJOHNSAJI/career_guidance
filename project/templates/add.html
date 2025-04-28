@@ -3,55 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Course</title>
 </head>
 <body>
     <nav>
-   
         <a href="{% url 'adminhome' %}"><button>Home</button></a>
         <a href="{% url 'add' %}"><button>Add</button></a>
         <a href="{% url 'userlist' %}"><button>User List</button></a>
         <a href="{% url 'logout' %}"><button>Logout</button></a>
     </nav>
-    <h1>ADD CARD</h1>
-    <form action="">
-        Title: <input type="text" name="title"><br>
-        Description:<textarea name="description"></textarea><br>
-        Description2:<textarea name="description2"></textarea><br>
-        <label for="type">Qualification</label>
-        <select name="type" id="type">
-           <option value="degree">Degree</option>
-           <option value="diploma">Diploma</option>
-           <option value="plus two">Plus Two</option>
-           <option value="10">10</option>
+
+    <h1>ADD COURSE</h1>
+    <form method="POST">
+        {% csrf_token %}
+        Title: <input type="text" name="title" required><br>
+        Description:<textarea name="description" required></textarea><br>
+        Main Description:<textarea name="maindescription" required></textarea><br>
+
+        <label for="qualification">Qualification</label>
+        <select name="qualification" id="qualification">
+            {% for qualification in qualifications %}
+                <option value="{{ qualification.name }}">{{ qualification.name }}</option>
+            {% endfor %}
         </select><br><br>
     
-        <label for="type">Subject</label>
-        <select name="type" id="type">
-            <option value="none">None</option>
-            <option value="cs">Computer Science</option>
-            <option value="ct">Computer Engineering</option> 
-            <option value="che">Computer Hardware Engineering</option>
-            <option value="ele">Electrical</option>
-            <option value="ece">Electronics and Communication</option>
-            <option value="mechanical">Mechanical</option>
-            <option value="civil">Civil</option>
-            <option value="biomaths">Bio Maths</option>
-            <option value="Commerce">Commerce</option>
-            <option value="humanities">Humanities</option>
-            <option value="ice">Instrumentation and Control Engineering</option>
-            <option value="ce">Chemical Engineering</option>
-         </select><br><br>
-        Interested: 
-         <!-- <label for="type">Type</label> -->
-        <select name="type" id="type">
-            <option value="course">study</option>
-            <option value="job">job</option>
-       
-        </select>
-       
-        <input type="submit">
+        <label for="subject">Subject</label>
+        <select name="subject" id="subject">
+            {% for subject in subjects %}
+                <option value="{{ subject.name }}">{{ subject.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        Interested:
+        <select name="interested" id="interested">
+            <option value="Job">Job</option>
+            <option value="Study">Study</option>
+        </select><br><br>
+        
+        <input type="submit" value="Add Course">
     </form>
-    
 </body>
 </html>

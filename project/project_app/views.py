@@ -18,7 +18,32 @@ def adminhome(request):
     return render(request,'adminhome.html')
 
 def add(request):
-    return render(request, 'add.html')
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        maindescription = request.POST.get('maindescription')
+        qualification = request.POST.get('qualification')
+        subject = request.POST.get('subject')
+        interested = request.POST.get('interested')
+
+        qualification_obj = Qualification.objects.get(name=qualification)
+        subject_obj = Subject.objects.get(name=subject)
+        
+        course = Course(
+            title=title,
+            description=description,
+            maindescription=maindescription,
+            qualification=qualification_obj,
+            subject=subject_obj,
+            interested=interested
+        )
+        course.save()
+        
+        return redirect('course_list')  # After saving, redirect to another page (e.g., course list)
+    else:
+        qualifications = Qualification.objects.all()
+        subjects = Subject.objects.all()
+    return render(request, 'add.html', {'qualifications': qualifications, 'subjects': subjects})
 
 def userlist(request):
     return render(request,'userlist.html')
