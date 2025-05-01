@@ -7,7 +7,7 @@
 
 /* Body */
 body {
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #34e89e 0%, #0f3443 100%); /* Fresh green to deep teal gradient */
     display: flex;
     justify-content: center;
@@ -158,7 +158,29 @@ p {
     }
 }
 
-/* Media Queries for Responsiveness */
+/* Home page style additions */
+.container {
+    background: rgba(255, 255, 255, 0.9); /* Slightly more opaque white */
+    padding: 40px 60px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideIn 1s ease-out;
+}
+
+/* Input Fields Styling */
+input[type="text"], input[type="password"], input[type="submit"] {
+    border-radius: 12px; /* Soft rounded edges */
+}
+
+/* Submit Button Hover */
+input[type="submit"]:hover {
+    background-color: #28b57b;
+    transform: translateY(-6px); /* Increased hover effect */
+}
+
+/* Responsive Styles */
 @media (max-width: 600px) {
     h1 {
         font-size: 2.5rem;

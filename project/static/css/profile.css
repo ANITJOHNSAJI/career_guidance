@@ -1,0 +1,190 @@
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #1f1f1f;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: #d4af37;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.nav-links a {
+    margin-left: 1.5rem;
+}
+
+.nav-links button {
+    background-color: #ffffff;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links button:hover {
+    background-color: #d4af37; /* Luxurious gold hover */
+}
+
+/* Profile page container */
+.container {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile section styling */
+h2 {
+    font-size: 2rem;
+    color: #1f1f1f;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+p {
+    font-size: 1rem;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #1f1f1f;
+    font-weight: 500;
+}
+
+a:hover {
+    color: #d4af37; /* Luxurious gold hover */
+}
+
+/* Button Styling */
+.btn {
+    padding: 0.6rem 1.2rem;
+    background-color: #d4af37;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #b28d2f;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Address List styling */
+.list-group-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.list-group-item strong {
+    color: #1f1f1f;
+    font-weight: 600;
+}
+
+.list-group-item a {
+    margin-top: 0.5rem;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #1f1f1f;
+    color: #f0f0f0;
+    padding: 3rem 2rem 2rem 2rem;
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+.footer div {
+    flex: 1;
+    margin-right: 2rem;
+    min-width: 250px;
+}
+
+.footer div ul {
+    list-style: none;
+}
+
+.footer div ul li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: #aaaaaa;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer div {
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+}
