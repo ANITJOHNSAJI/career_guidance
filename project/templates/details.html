@@ -7,6 +7,14 @@
 </head>
 <body>
     <div>
+        <h1>Course Details</h1>
+        <h2>{{ course.title }}</h2>
+        <p>{{ course.description }}</p>
+        <p>{{ course.maindescription }}</p><br>
+        <p>Qualification: {{ course.qualification.name }}</p>
+       
+    </div>
+    <div>
         <h1>For More Details</h1>
         <form action="/submit" method="post" class="contact-form">
             <label for="name">Name:</label>

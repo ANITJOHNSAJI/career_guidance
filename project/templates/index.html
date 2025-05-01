@@ -35,6 +35,17 @@
     <main>
         <h1>Welcome to Your Career Compass</h1>
     </main>
+    <div class="courses-container">
+        {% for course in courses %}
+        <div class="course-card">
+            <h2>{{ course.title }}</h2>
+            <p>{{ course.description }}</p>
+            <div class="course-actions">
+                <button><a href="{% url 'details' course.id %}" class="btn">View</a></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

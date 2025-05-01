@@ -12,10 +12,16 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+     courses = Course.objects.all()
+     return render(request, "index.html", {"courses": courses})
+
+def details(request, product_id):
+    course = get_object_or_404(Course, pk=product_id)
+    return render(request, 'details.html', {'course': course})
 
 def adminhome(request):
-    return render(request,'adminhome.html')
+    courses = Course.objects.all()
+    return render(request, 'adminhome.html', {'courses': courses})
 
 def add(request):
     if request.method == 'POST':
@@ -39,7 +45,7 @@ def add(request):
         )
         course.save()
         
-        return redirect('course_list')  # After saving, redirect to another page (e.g., course list)
+        return redirect('adminhome')  # After saving, redirect to another page (e.g., course list)
     else:
         qualifications = Qualification.objects.all()
         subjects = Subject.objects.all()

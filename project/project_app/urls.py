@@ -22,6 +22,7 @@ urlpatterns = [
     path('profile/delete-address/<int:address_id>/', views.delete_address, name='delete_address'),
     path('profile/edit-email/', views.edit_email, name='edit_email'),
     path('profile/edit-username/', views.edit_username, name='edit_username'),
+    path('details/<int:product_id>/', views.details, name='details'),
    
   
 ]

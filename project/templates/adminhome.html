@@ -14,5 +14,18 @@
         <a href="{% url 'logout' %}"><button>Logout</button></a>
     </nav>
     <h1>ADMIN HOME</h1>
+
+    <h2>Our Courses</h2>
+    <div class="courses-container">
+        {% for course in courses %}
+        <div class="course-card">
+            <h2>{{ course.title }}</h2>
+            <p>{{ course.description }}</p>
+            <div class="course-actions">
+       
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
