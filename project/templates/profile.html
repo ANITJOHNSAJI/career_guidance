@@ -9,25 +9,25 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
 </head>
 <body>
-    <nav class="navbar">
-        <a class="navbar-brand" href="#">WATCHCART</a>
-        <div class="nav-links">
-            <a href="{% url 'index' %}"><button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></button></a>
-            <a href="{% url 'logout' %}"><button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg></button></a>
-            
-          
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Career<span>Guide</span></div>
+            <div class="nav-links">
+                <a href="{% url 'index' %}"><button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></button></a>
+                <a href="{% url 'logout' %}"><button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg></button></a> 
+            </div>
         </div>
-    </nav>
-    
+    </nav> 
    
 
-<div class="container mt-5">
+<div class="container ">
     <h2>User Profile</h2>
     <p><strong>Email:</strong> {{ email }} <a href="{% url 'edit_email' %}">[Edit]</a></p>
     <p><strong>Username:</strong> {{ request.user.username }} <a href="{% url 'edit_username' %}">[Edit]</a></p>
   
     <h3 class="mt-4">Addresses</h3>
-    <a class="btn btn-success mb-3" href="{% url 'add_address' %}">Add Address</a>
+  
     {% if addresses %}
       <ul class="list-group">
         {% for addr in addresses %}
@@ -35,48 +35,54 @@
             <strong>{{ addr.name }}</strong><br>
             {{ addr.address }}<br>
             Phone: {{ addr.phone }}<br>
-            <a href="{% url 'edit_address' addr.id %}" class="btn btn-primary btn-sm mt-2"><button>Edit</button></a>
-            <a href="{% url 'delete_address' addr.id %}" class="btn btn-danger btn-sm mt-2"><button>Delete</button></a>
+            <a href="{% url 'edit_address' addr.id %}" ><button>Edit</button></a>
+            <a href="{% url 'delete_address' addr.id %}"><button>Delete</button></a>
           </li>
+          <a class="btn btn-success mb-3" href="{% url 'add_address' %}">Add Address</a>
         {% endfor %}
       </ul>
     {% else %}
       <p>No addresses saved yet.</p>
     {% endif %}
   </div>
-  <footer class="footer">
-    <div class="foot1">
-        <ul>
-            <li>© All rights reserved by WatchCart, Kottayam, India.</li>
-        </ul>
-    </div>
-    <div class="foot2">
-        <ul>
-            <li><b>SOLUTIONS</b></li>
-            <li>My Account</li>
-            <li>Track Your Order</li>
-            <li>Order History</li>
-            <li>Payment Methods</li>
-            <li>Privacy Policy</li>
-        </ul>
-    </div>
-    <div class="foot3">
-        <ul>
-            <li><b>ABOUT US</b></li>
-            <li>About Us</li>
-            <li>Terms & Conditions</li>
-            <li>Privacy Policy</li>
-            <li>Return Policy</li>
-            <li>Site Map</li>
-        </ul>
-    </div>
-    <div class="foot4">
-        <ul>
-            <li><b>CONTACT US</b></li>
-            <li>Ettumanoor, Kottayam, Kerala</li>
-            <li>+91-86065 70657</li>
-            <li>Mon - Sat / 9:00AM - 6:00PM</li>
-        </ul>
+   <!-- Footer -->
+   <footer class="footer">
+    <div class="container">
+        <div class="footer-container">
+            <div class="foot-column">
+                <h3>CareerGuide</h3>
+                <p>Empowering your future with guided career choices.</p>
+            </div>
+            <div class="foot-column">
+                <h4>SOLUTIONS</h4>
+                <ul>
+                    <li>My Account</li>
+                    <li>Track Your Path</li>
+                    <li>Explore Fields</li>
+                    <li>Guidance History</li>
+                </ul>
+            </div>
+            <div class="foot-column">
+                <h4>ABOUT</h4>
+                <ul>
+                    <li>About Us</li>
+                    <li>Terms & Conditions</li>
+                    <li>Privacy Policy</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="foot-column">
+                <h4>CONTACT US</h4>
+                <ul>
+                    <li>Ettumanoor, Kottayam, Kerala</li>
+                    <li>+91-86065 70657</li>
+                    <li>Mon - Sat / 9:00AM - 6:00PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 CareerGuide. All rights reserved.</p>
+        </div>
     </div>
 </footer>
   

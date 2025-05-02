@@ -15,6 +15,7 @@ def index(request):
      courses = Course.objects.all()
      return render(request, "index.html", {"courses": courses})
 
+@login_required(login_url='userlogin')
 def details(request, product_id):
     course = get_object_or_404(Course, pk=product_id)
     return render(request, 'details.html', {'course': course})
@@ -54,6 +55,7 @@ def add(request):
 def userlist(request):
     return render(request,'userlist.html')
 
+@login_required(login_url='userlogin')
 def profile_view(request):
     """View to display user profile with addresses"""
 
