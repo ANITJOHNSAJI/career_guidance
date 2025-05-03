@@ -11,7 +11,7 @@ class Subject(models.Model):
     qualification=models.ForeignKey(Qualification, on_delete=models.CASCADE)
     name=models.CharField(max_length=50)
 
-class Course(models.Model):
+class Career(models.Model):
       INTERESTED_CHOICES = [
         ('Job', 'Job'),
         ('Study', 'Study'),

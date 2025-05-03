@@ -27,6 +27,7 @@
     <p><strong>Username:</strong> {{ request.user.username }} <a href="{% url 'edit_username' %}">[Edit]</a></p>
   
     <h3 class="mt-4">Addresses</h3>
+    <a class="btn btn-success mb-3" href="{% url 'add_address' %}">Add Address</a>
   
     {% if addresses %}
       <ul class="list-group">
@@ -38,7 +39,7 @@
             <a href="{% url 'edit_address' addr.id %}" ><button>Edit</button></a>
             <a href="{% url 'delete_address' addr.id %}"><button>Delete</button></a>
           </li>
-          <a class="btn btn-success mb-3" href="{% url 'add_address' %}">Add Address</a>
+         
         {% endfor %}
       </ul>
     {% else %}

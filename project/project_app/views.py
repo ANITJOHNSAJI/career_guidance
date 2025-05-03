@@ -12,17 +12,17 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-     courses = Course.objects.all()
-     return render(request, "index.html", {"courses": courses})
+     careers = Career.objects.all()
+     return render(request, "index.html", {"careers": careers})
 
 @login_required(login_url='userlogin')
 def details(request, product_id):
-    course = get_object_or_404(Course, pk=product_id)
-    return render(request, 'details.html', {'course': course})
+    career = get_object_or_404(Career, pk=product_id)
+    return render(request, 'details.html', {'career': career})
 
 def adminhome(request):
-    courses = Course.objects.all()
-    return render(request, 'adminhome.html', {'courses': courses})
+    careers = Career.objects.all()
+    return render(request, 'adminhome.html', {'careers': careers})
 
 def add(request):
     if request.method == 'POST':
@@ -36,7 +36,7 @@ def add(request):
         qualification_obj = Qualification.objects.get(name=qualification)
         subject_obj = Subject.objects.get(name=subject)
         
-        course = Course(
+        career = Career(
             title=title,
             description=description,
             maindescription=maindescription,
@@ -44,7 +44,7 @@ def add(request):
             subject=subject_obj,
             interested=interested
         )
-        course.save()
+        career.save()
         
         return redirect('adminhome')  # After saving, redirect to another page (e.g., course list)
     else:

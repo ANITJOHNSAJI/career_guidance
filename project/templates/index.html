@@ -47,14 +47,14 @@
         </div>
         
 
-    <!-- Courses Display -->
+    <!-- Career Display -->
     <div class="courses-container">
-        {% for course in courses %}
+        {% for career in careers %}
         <div class="course-card">
-            <h2>{{ course.title }}</h2>
-            <p>{{ course.description }}</p>
+            <h2>{{ career.title }}</h2>
+            <p>{{ career.description }}</p>
             <div class="course-actions">
-                <a href="{% url 'details' course.id %}" class="btn"><button>View</button></a>
+                <a href="{% url 'details' career.id %}" class="btn"><button>View</button></a>
             </div>
         </div>
         {% endfor %}

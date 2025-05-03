@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Course</title>
+    <title>Add Career</title>
 </head>
 <body>
     <nav>
@@ -13,7 +13,7 @@
         <a href="{% url 'logout' %}"><button>Logout</button></a>
     </nav>
 
-    <h1>ADD COURSE</h1>
+    <h1>ADD CAREER</h1>
     <form method="POST">
         {% csrf_token %}
         Title: <input type="text" name="title" required><br>
@@ -40,7 +40,7 @@
             <option value="Study">Study</option>
         </select><br><br>
         
-        <input type="submit" value="Add Course">
+        <input type="submit" value="Add Career">
     </form>
 </body>
 </html>
