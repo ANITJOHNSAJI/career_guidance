@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Career Guide</title>
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
+</head>
+<body>
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Career<span>Guide</span></div>
+            <div class="nav-links">
+                <a href="{% url 'index' %}"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+                <a href="{% url 'profile' %}" title="Profile">Profile</a>
+                <a href="{% url 'contact' %}"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" title="Logout">Logout</a>
+                {% else %}
+                    <a href="{% url 'userlogin' %}" title="Login">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <section class="about-section">
+        <h1>About Career Guidance System</h1>
+        <p>
+            The <strong>Career Guidance System</strong> is designed to help individuals find the right career path by suggesting job opportunities or educational courses that match their qualifications and interests.
+        </p>
+        <h2>Key Features</h2>
+        <ul>
+            <li>🎯 Suggestions for jobs and courses based on your qualifications</li>
+            <li>📚 Guidance to choose the right career or study path</li>
+            <li>📝 Personalized profiles to track your journey</li>
+            <li>💬 Admin support for managing information and feedback</li>
+            <li>📊 Easy-to-use and accessible on all devices</li>
+        </ul>
+        <h2>Our Mission</h2>
+        <p>
+            Our mission is to support individuals in making the best decisions for their future—whether it's starting a career or continuing their education—by offering reliable and personalized guidance.
+        </p>
+        <p>
+            Whether you're looking for a job or planning to study further, Career Guide is here to help you move forward with confidence.
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="foot-column">
+                    <h3>CareerGuide</h3>
+                    <p>Empowering your future with guided career choices.</p>
+                </div>
+                <div class="foot-column">
+                    <h4>SOLUTIONS</h4>
+                    <ul>
+                        <li>My Account</li>
+                        <li>Track Your Path</li>
+                        <li>Explore Fields</li>
+                        <li>Guidance History</li>
+                    </ul>
+                </div>
+                <div class="foot-column">
+                    <h4>ABOUT</h4>
+                    <ul>
+                        <li>About Us</li>
+                        <li>Terms & Conditions</li>
+                        <li>Privacy Policy</li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+                <div class="foot-column">
+                    <h4>CONTACT US</h4>
+                    <ul>
+                        <li>Ettumanoor, Kottayam, Kerala</li>
+                        <li>+91-86065 70657</li>
+                        <li>Mon - Sat / 9:00AM - 6:00PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 CareerGuide. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

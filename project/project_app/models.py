@@ -25,9 +25,19 @@ class Career(models.Model):
       interested = models.CharField(max_length=20, choices=INTERESTED_CHOICES, null=True, blank=True)
 
 class Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name=models.CharField(max_length=225)
-    address=models.TextField()
-    phone=models.CharField(max_length=12)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Change to ForeignKey for multiple addresses
+    name = models.CharField(max_length=225)
+    address = models.TextField()
+    phone = models.CharField(max_length=12)
+
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message from {self.name} ({self.email})"
 
 

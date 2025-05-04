@@ -5,3 +5,4 @@ from . models import *
 admin.site.register(Qualification)
 admin.site.register(Subject)
 admin.site.register(Career)
+admin.site.register(ContactMessage)

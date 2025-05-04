@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Qualification & Subjects</title>
+    <link rel="stylesheet" href="{% static 'css/admin/add_qualification.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'adminhome' %}"><button>Home</button></a>
+        <a href="{% url 'add' %}">Add Career</a>
+        <a href="{% url 'message_list' %}">Messages</a>
+        <a href="{% url 'userlist' %}"><button>User List</button></a>
+        <a href="{% url 'logout' %}"><button>Logout</button></a>
+    </nav>
+
+    <h2>Add Qualification and Subjects</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Qualification Name:</label>
+        <input type="text" name="qualification" required><br><br>
+
+        <label>Subject 1:</label>
+        <input type="text" name="subject1"><br>
+        <label>Subject 2:</label>
+        <input type="text" name="subject2"><br>
+        <label>Subject 3:</label>
+        <input type="text" name="subject3"><br>
+        <label>Subject 4:</label>
+        <input type="text" name="subject4"><br>
+        <label>Subject 5:</label>
+        <input type="text" name="subject5"><br><br>
+
+        <button type="submit">Add</button>
+    </form>
+
+    {% if message %}
+        <p style="color: green;">{{ message }}</p>
+    {% endif %}
+
+    <h3>All Qualifications & Subjects</h3>
+    <ul>
+        {% for qualification in qualifications %}
+            <li>{{ qualification.name }}
+                <ul>
+                    {% for subject in qualification.subject_set.all %}
+                        <li>{{ subject.name }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% empty %}
+            <li>No qualifications found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

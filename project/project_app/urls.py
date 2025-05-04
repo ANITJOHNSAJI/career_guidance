@@ -13,7 +13,6 @@ urlpatterns = [
     path('passwordreset',views.passwordreset,name='passwordreset'),
     path('logout/', views.logoutuser, name="logout"),
     path('adminhome/', views.adminhome, name='adminhome'),
-    path('add/', views.add, name='add'),
     path('userform/', views.userform, name='userform'),
     path('userlist/',views.userlist,name='userlist'),
     path('profile/', views.profile_view, name='profile'),
@@ -23,6 +22,14 @@ urlpatterns = [
     path('profile/edit-email/', views.edit_email, name='edit_email'),
     path('profile/edit-username/', views.edit_username, name='edit_username'),
     path('details/<int:product_id>/', views.details, name='details'),
+    path('contact/', views.contact, name='contact'),
+    path('about/',views.about,name='about'),
+    path('message_list/', views.message_list, name='message_list'),
+    path('add-qualification/', views.add_qualification_subjects, name='add-qualification'),
+    path('add/', views.add, name='add'),
+    path('get-subjects/<int:qualification_id>/', views.get_subjects, name='get_subjects'),
+
+
    
   
 ]

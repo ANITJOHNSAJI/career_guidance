@@ -1,14 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Career</title>
+    <link rel="stylesheet" href="{% static 'css/admin/add.css' %}">
 </head>
 <body>
     <nav>
         <a href="{% url 'adminhome' %}"><button>Home</button></a>
-        <a href="{% url 'add' %}"><button>Add</button></a>
+        <a href="{% url 'add-qualification' %}">Add Qualification</a> 
+        <a href="{% url 'message_list' %}">Messages</a>
         <a href="{% url 'userlist' %}"><button>User List</button></a>
         <a href="{% url 'logout' %}"><button>Logout</button></a>
     </nav>
@@ -21,17 +24,16 @@
         Main Description:<textarea name="maindescription" required></textarea><br>
 
         <label for="qualification">Qualification</label>
-        <select name="qualification" id="qualification">
+        <select name="qualification" id="qualification" required>
+            <option value="">Select Qualification</option>
             {% for qualification in qualifications %}
-                <option value="{{ qualification.name }}">{{ qualification.name }}</option>
+                <option value="{{ qualification.id }}">{{ qualification.name }}</option>
             {% endfor %}
         </select><br><br>
-    
+        
         <label for="subject">Subject</label>
-        <select name="subject" id="subject">
-            {% for subject in subjects %}
-                <option value="{{ subject.name }}">{{ subject.name }}</option>
-            {% endfor %}
+        <select name="subject" id="subject" required>
+            <option value="">Select Subject</option>
         </select><br><br>
 
         Interested:
@@ -42,5 +44,25 @@
         
         <input type="submit" value="Add Career">
     </form>
+
+    <script>
+        document.getElementById('qualification').addEventListener('change', function () {
+            var qualificationId = this.value;
+            var subjectSelect = document.getElementById('subject');
+            subjectSelect.innerHTML = '<option value="">Loading...</option>';
+
+            fetch(`/get-subjects/${qualificationId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+                    data.subjects.forEach(function(subject) {
+                        var option = document.createElement('option');
+                        option.value = subject.id;
+                        option.text = subject.name;
+                        subjectSelect.appendChild(option);
+                    });
+                });
+        });
+    </script>
 </body>
 </html>

@@ -1,18 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User List | CareerGuide</title>
+    <link rel="stylesheet" href="{% static 'css/admin/userlist.css' %}">
 </head>
 <body>
     <nav>
    
-        <a href="{% url 'adminhome' %}"><button>Home</button></a>
-        <a href="{% url 'add' %}"><button>Add </button></a>
-        <a href="{% url 'userlist' %}"><button>User List</button></a>
+        <a href="{% url 'adminhome' %}"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+        <a href="{% url 'message_list' %}">Messages</a>
+        <a href="{% url 'add' %}"><button>Add Career</button></a>
         <a href="{% url 'logout' %}"><button>Logout</button></a>
     </nav>
-    <h1>Use list</h1>
+    <h2>User List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for address in addresses %}
+            <tr>
+                <td data-label="Username">{{ address.user.username }}</td>
+                <td data-label="Email">{{ address.user.email }}</td>
+                <td data-label="Phone Number">{{ address.phone }}</td>
+                <td data-label="Address">{{ address.address }}</td>
+                
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No users found</td></tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
 </body>
 </html>

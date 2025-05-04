@@ -9,20 +9,41 @@ from datetime import datetime, timedelta
 from .models import *
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
+
+# -- -----------admin  views starts here------------>
 # Create your views here.
-def index(request):
-     careers = Career.objects.all()
-     return render(request, "index.html", {"careers": careers})
-
-@login_required(login_url='userlogin')
-def details(request, product_id):
-    career = get_object_or_404(Career, pk=product_id)
-    return render(request, 'details.html', {'career': career})
 
 def adminhome(request):
     careers = Career.objects.all()
     return render(request, 'adminhome.html', {'careers': careers})
+
+def add_qualification_subjects(request):
+    message = ''
+    if request.method == 'POST':
+        qualification_name = request.POST.get('qualification').strip()
+        if qualification_name:
+            qualification, created = Qualification.objects.get_or_create(name=qualification_name)
+            
+            # Collect subjects from form
+            for i in range(1, 6):
+                subject_name = request.POST.get(f'subject{i}')
+                if subject_name and subject_name.strip():
+                    Subject.objects.create(
+                        name=subject_name.strip(),
+                        qualification=qualification
+                    )
+            message = "Qualification and subjects added successfully."
+
+    qualifications = Qualification.objects.all()
+    return render(request, 'add_qualification.html', {
+        'qualifications': qualifications,
+        'message': message
+    })
+
+
 
 def add(request):
     if request.method == 'POST':
@@ -52,8 +73,38 @@ def add(request):
         subjects = Subject.objects.all()
     return render(request, 'add.html', {'qualifications': qualifications, 'subjects': subjects})
 
+def get_subjects(request, qualification_id):
+    subjects = Subject.objects.filter(qualification_id=qualification_id)
+    data = {
+        'subjects': [{'id': s.id, 'name': s.name} for s in subjects]
+    }
+    return JsonResponse(data)
+
+
+
 def userlist(request):
-    return render(request,'userlist.html')
+    addresses = Address.objects.select_related('user')
+    return render(request, 'userlist.html', {'addresses': addresses})
+
+
+def message_list(request):
+    messages = ContactMessage.objects.all().order_by('-submitted_at')  # newest first
+    return render(request, 'message.html', {'messages': messages})
+
+
+
+#-------------- ---------user views starts here ---------------------------------------------------#
+
+def index(request):
+     careers = Career.objects.all()
+     return render(request, "index.html", {"careers": careers})
+
+@login_required(login_url='userlogin')
+def details(request, product_id):
+    career = get_object_or_404(Career, pk=product_id)
+    return render(request, 'details.html', {'career': career})
+
+
 
 @login_required(login_url='userlogin')
 def profile_view(request):
@@ -274,6 +325,24 @@ def userlogin(request):
             messages.error(request, "Invalid credentials.")
 
     return render(request, 'userlogin.html')
+
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        ContactMessage.objects.create(name=name, email=email, message=message)
+
+        messages.success(request, 'Your message has been sent and saved successfully!')
+        return redirect('contact')
+
+    return render(request, 'contact.html')
+
+
+def about(request):
+    return render(request, 'about.html')
 
 def logoutuser(request):
     logout(request)

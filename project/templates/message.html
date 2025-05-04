@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Messages | Admin</title>
+    <link rel="stylesheet" href="{% static 'css/admin/message.css' %}">
+</head>
+<body>
+ <nav>
+    <a href="{% url 'add' %}">Add </a>
+    <a href="{% url 'userlist' %}">User List</a>
+    <a href="{% url 'logout' %}">Logout</a>
+ </nav>
+    <h1>User Contact Messages</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Submitted At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in messages %}
+            <tr>
+                <td data-label="Name">{{ msg.name }}</td>
+                <td data-label="Email">{{ msg.email }}</td>
+                <td data-label="Message">{{ msg.message }}</td>
+                <td data-label="Submitted At">{{ msg.submitted_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No messages found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
