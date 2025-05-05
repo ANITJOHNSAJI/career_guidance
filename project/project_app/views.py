@@ -21,27 +21,72 @@ def adminhome(request):
     return render(request, 'adminhome.html', {'careers': careers})
 
 def add_qualification_subjects(request):
-    message = ''
     if request.method == 'POST':
         qualification_name = request.POST.get('qualification').strip()
         if qualification_name:
             qualification, created = Qualification.objects.get_or_create(name=qualification_name)
-            
+
             # Collect subjects from form
+            added_subjects = []
             for i in range(1, 6):
                 subject_name = request.POST.get(f'subject{i}')
                 if subject_name and subject_name.strip():
-                    Subject.objects.create(
-                        name=subject_name.strip(),
-                        qualification=qualification
-                    )
-            message = "Qualification and subjects added successfully."
+                    subject_name_clean = subject_name.strip()
+                    # Prevent duplicates
+                    if not Subject.objects.filter(name=subject_name_clean, qualification=qualification).exists():
+                        Subject.objects.create(name=subject_name_clean, qualification=qualification)
+                        added_subjects.append(subject_name_clean)
+
+            if created or added_subjects:
+                messages.success(request, "Qualification and subjects added successfully.")
+            else:
+                messages.info(request, "No new subjects were added.")
+        else:
+            messages.error(request, "Qualification name is required.")
 
     qualifications = Qualification.objects.all()
     return render(request, 'add_qualification.html', {
-        'qualifications': qualifications,
-        'message': message
+        'qualifications': qualifications
     })
+
+@login_required
+def edit_qualification(request, pk):
+    qualification = get_object_or_404(Qualification, pk=pk)
+    if request.method == 'POST':
+        qualification.name = request.POST.get('qualification').strip()
+        qualification.save()
+        return redirect('add-qualification')  # corrected here
+    return render(request, 'edit_qualification.html', {'qualification': qualification})
+
+@login_required
+def edit_subject(request, pk):
+    subject = get_object_or_404(Subject, pk=pk)
+    if request.method == 'POST':
+        new_name = request.POST.get('subject_name').strip()
+        if new_name:
+            subject.name = new_name
+            subject.save()
+            return redirect('add-qualification')  # redirect back to list
+    return render(request, 'edit_subject.html', {'subject': subject})
+
+
+# Delete Qualification
+@login_required
+def delete_qualification(request, pk):
+    qualification = get_object_or_404(Qualification, pk=pk)
+    qualification.delete()
+    return redirect('add-qualification')  
+
+
+
+# Delete Subject
+@login_required
+def delete_subject(request, pk):
+    subject = get_object_or_404(Subject, pk=pk)
+    subject.delete()
+    return redirect('add-qualification')
+
+
 
 
 
@@ -73,6 +118,42 @@ def add(request):
         subjects = Subject.objects.all()
     return render(request, 'add.html', {'qualifications': qualifications, 'subjects': subjects})
 
+def edit(request, id):
+    career = get_object_or_404(Career, id=id)
+
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        maindescription = request.POST.get('maindescription')
+        qualification_id = request.POST.get('qualification')
+        subject_id = request.POST.get('subject')
+        interested = request.POST.get('interested')
+
+        qualification_obj = Qualification.objects.get(id=qualification_id)
+        subject_obj = Subject.objects.get(id=subject_id)
+
+        career.title = title
+        career.description = description
+        career.maindescription = maindescription
+        career.qualification = qualification_obj
+        career.subject = subject_obj
+        career.interested = interested
+        career.save()
+
+        return redirect('adminhome')
+
+    qualifications = Qualification.objects.all()
+    subjects = Subject.objects.all()
+    return render(request, 'edit.html', {
+        'career': career,
+        'qualifications': qualifications,
+        'subjects': subjects
+    })
+def delete(request, id):
+    career = get_object_or_404(Career, id=id)
+    career.delete()
+    return redirect('adminhome')
+
 def get_subjects(request, qualification_id):
     subjects = Subject.objects.filter(qualification_id=qualification_id)
     data = {
@@ -95,9 +176,49 @@ def message_list(request):
 
 #-------------- ---------user views starts here ---------------------------------------------------#
 
+@login_required
+def userform(request):
+    if request.method == 'POST':
+        qualification_id = request.POST.get('qualification')
+        subject_id = request.POST.get('subject')
+        interested = request.POST.get('interested')
+        details = request.POST.get('details')
+
+        qualification = Qualification.objects.get(id=qualification_id)
+        subject = Subject.objects.get(id=subject_id)
+
+        # Check if the user already has a UserCareerFilter
+        user_career_filter, created = UserCareerFilter.objects.update_or_create(
+            user=request.user,
+            defaults={
+                'qualification': qualification,
+                'subject': subject,
+                'interested': interested,
+                'details': details,
+            }
+        )
+        return redirect('index')
+
+    qualifications = Qualification.objects.all()
+    return render(request, 'userform.html', {'qualifications': qualifications})
+
+
+
 def index(request):
-     careers = Career.objects.all()
-     return render(request, "index.html", {"careers": careers})
+    if request.user.is_authenticated:
+        try:
+            filter = UserCareerFilter.objects.get(user=request.user)
+            careers = Career.objects.filter(
+                qualification=filter.qualification,
+                subject=filter.subject,
+                interested=filter.interested
+            )
+        except UserCareerFilter.DoesNotExist:
+            return redirect('userform')  # force them to fill filter form
+    else:
+        careers = Career.objects.all()  # for anonymous users or no login
+    
+    return render(request, "index.html", {"careers": careers})
 
 @login_required(login_url='userlogin')
 def details(request, product_id):
@@ -106,17 +227,21 @@ def details(request, product_id):
 
 
 
-@login_required(login_url='userlogin')
+@login_required
 def profile_view(request):
-    """View to display user profile with addresses"""
+    """View to display user profile with career preferences and addresses"""
 
-    addresses = Address.objects.filter(user=request.user)
+    user_career_filter = UserCareerFilter.objects.filter(user=request.user).first()  # Get user's career filter preferences
+    addresses = Address.objects.filter(user=request.user)  # Get user's addresses
     
     context = {
         'addresses': addresses,
-        'email': request.user.email, 
+        'email': request.user.email,
+        'user_career_filter': user_career_filter,  # Pass career preferences to template
     }
+
     return render(request, 'profile.html', context)
+
 
 @login_required
 def add_address(request):
@@ -305,27 +430,32 @@ def usersignup(request):
 
     return render(request, "register.html")
 
-def userform(request):
-    return render(request, 'userform.html')
+
+
 
 def userlogin(request):
-    if request.user.is_authenticated:  # Instead of checking session directly
-        return redirect('index')  
+    if request.user.is_authenticated:
+        return redirect('index')
 
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
+
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return redirect('adminhome')  # Check that the 'firstpage' URL exists
-            return redirect('index')
+                return redirect('adminhome')
+            try:
+                # Check if user has already submitted the filter form
+                UserCareerFilter.objects.get(user=user)
+                return redirect('index')
+            except UserCareerFilter.DoesNotExist:
+                return redirect('userform')  # Prompt to fill career filter form
         else:
             messages.error(request, "Invalid credentials.")
 
     return render(request, 'userlogin.html')
-
 
 def contact(request):
     if request.method == 'POST':

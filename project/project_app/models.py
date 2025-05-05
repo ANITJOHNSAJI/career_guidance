@@ -8,8 +8,12 @@ class Qualification(models.Model):
     def __str__(self):
         return self.name
 class Subject(models.Model):
-    qualification=models.ForeignKey(Qualification, on_delete=models.CASCADE)
-    name=models.CharField(max_length=50)
+    qualification = models.ForeignKey(Qualification, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
 
 class Career(models.Model):
       INTERESTED_CHOICES = [
@@ -39,5 +43,16 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"Message from {self.name} ({self.email})"
+    
+class UserCareerFilter(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    qualification = models.ForeignKey(Qualification, on_delete=models.SET_NULL, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
+    interested = models.CharField(max_length=20, choices=Career.INTERESTED_CHOICES)
+    details = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.user.username
+
 
 

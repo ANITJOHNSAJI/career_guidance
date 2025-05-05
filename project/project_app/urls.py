@@ -28,6 +28,14 @@ urlpatterns = [
     path('add-qualification/', views.add_qualification_subjects, name='add-qualification'),
     path('add/', views.add, name='add'),
     path('get-subjects/<int:qualification_id>/', views.get_subjects, name='get_subjects'),
+    path('edit_qualification/<int:pk>/', views.edit_qualification, name='edit_qualification'),
+    path('delete_qualification/<int:pk>/', views.delete_qualification, name='delete_qualification'),
+    path('delete_subject/<int:pk>/', views.delete_subject, name='delete_subject'),
+    path('edit_subject/<int:pk>/', views.edit_subject, name='edit_subject'),
+    path('edit-career/<int:id>/', views.edit, name='edit-career'),
+    path('delete-career/<int:id>/', views.delete, name='delete-career'),
+
+
 
 
    

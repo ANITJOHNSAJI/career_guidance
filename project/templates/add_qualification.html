@@ -41,10 +41,18 @@
     <h3>All Qualifications & Subjects</h3>
     <ul>
         {% for qualification in qualifications %}
-            <li>{{ qualification.name }}
+            <li>
+                <strong>{{ qualification.name }}</strong>
+                <a href="{% url 'edit_qualification' qualification.id %}">[Edit]</a>
+                <a href="{% url 'delete_qualification' qualification.id %}" onclick="return confirm('Delete this qualification?')">[Delete]</a>
                 <ul>
                     {% for subject in qualification.subject_set.all %}
-                        <li>{{ subject.name }}</li>
+                        <li>
+                            {{ subject.name }}
+                            <a href="{% url 'edit_subject' subject.id %}">[Edit]</a>
+
+                            <a href="{% url 'delete_subject' subject.id %}" onclick="return confirm('Delete this subject?')">[Delete]</a>
+                        </li>
                     {% endfor %}
                 </ul>
             </li>
@@ -52,5 +60,6 @@
             <li>No qualifications found.</li>
         {% endfor %}
     </ul>
+    
 </body>
 </html>

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Career</title>
+    <link rel="stylesheet" href="{% static 'css/admin/add.css' %}">
+</head>
+<body>
+    <h1>Edit Career</h1>
+    <form method="POST">
+        {% csrf_token %}
+        Title: <input type="text" name="title" value="{{ career.title }}" required><br>
+        Description: <textarea name="description" required>{{ career.description }}</textarea><br>
+        Main Description: <textarea name="maindescription" required>{{ career.maindescription }}</textarea><br>
+
+        <label for="qualification">Qualification</label>
+        <select name="qualification" id="qualification" required>
+            {% for qualification in qualifications %}
+                <option value="{{ qualification.id }}" {% if qualification.id == career.qualification.id %}selected{% endif %}>
+                    {{ qualification.name }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="subject">Subject</label>
+        <select name="subject" id="subject" required>
+            {% for subject in subjects %}
+                <option value="{{ subject.id }}" {% if subject.id == career.subject.id %}selected{% endif %}>
+                    {{ subject.name }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        Interested:
+        <select name="interested" id="interested">
+            <option value="Job" {% if career.interested == "Job" %}selected{% endif %}>Job</option>
+            <option value="Study" {% if career.interested == "Study" %}selected{% endif %}>Study</option>
+        </select><br><br>
+
+        <input type="submit" value="Update Career">
+    </form>
+</body>
+</html>

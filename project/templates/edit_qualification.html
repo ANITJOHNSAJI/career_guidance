@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Qualification</title>
+    <link rel="stylesheet" href="{% static 'css/admin/add_qualification.css' %}">
+</head>
+<body>
+    <h2>Edit Qualification</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Qualification Name:</label>
+        <input type="text" name="qualification" value="{{ qualification.name }}" required>
+        <button type="submit">Update</button>
+    </form>
+    <a href="{% url 'add-qualification' %}"><button>Back</button></a>
+</body>
+</html>

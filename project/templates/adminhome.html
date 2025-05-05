@@ -25,6 +25,8 @@
         <div class="career-card">
             <h2>{{ career.title }}</h2>
             <p>{{ career.description }}</p>
+            <a href="{% url 'edit-career' career.id %}">Edit</a> |
+            <a href="{% url 'delete-career' career.id %}" onclick="return confirm('Are you sure you want to delete this career?');">Delete</a>
             <div class="career-actions">
        
             </div>
