@@ -45,8 +45,9 @@
         </div>
     </div>
 
-    <!-- Career Display Section -->
+    <!-- Personalized Career Matches -->
     <div class="courses-container">
+        <h2>Careers Matched to Your Profile</h2>
         {% for career in careers %}
         <div class="course-card">
             <h2>{{ career.title }}</h2>
@@ -55,7 +56,27 @@
                 <a href="{% url 'details' career.id %}" class="btn">View</a>
             </div>
         </div>
+        {% empty %}
+        <p>No personalized career matches found. Update your interests in your profile.</p>
         {% endfor %}
+    </div>
+
+    <!-- General Recommendations Based on Interest -->
+    <div class="courses-container2">
+        {% if user_career_filter %}
+            <h2>Recommended for You: {{ user_career_filter.interested|title }}</h2>
+            {% for career in filtered_careers %}
+            <div class="course-card">
+                <h2>{{ career.title }}</h2>
+                <p>{{ career.description }}</p>
+                <div class="course-actions">
+                    <a href="{% url 'details' career.id %}" class="btn">View</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No matching careers found in this category.</p>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <!-- Footer -->

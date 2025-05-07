@@ -5,23 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Career</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/admin/add.css' %}">
 </head>
 <body>
+
     <nav>
         <a href="{% url 'adminhome' %}"><button>Home</button></a>
-        <a href="{% url 'add-qualification' %}">Add Qualification</a> 
-        <a href="{% url 'message_list' %}">Messages</a>
+        <a href="{% url 'add-qualification' %}"><button>Add Qualification</button></a> 
+        <a href="{% url 'message_list' %}"><button>Messages</button></a>
         <a href="{% url 'userlist' %}"><button>User List</button></a>
         <a href="{% url 'logout' %}"><button>Logout</button></a>
     </nav>
 
-    <h1>ADD CAREER</h1>
+    <h1>Add Career</h1>
+
     <form method="POST">
         {% csrf_token %}
-        Title: <input type="text" name="title" required><br>
-        Description:<textarea name="description" required></textarea><br>
-        Main Description:<textarea name="maindescription" required></textarea><br>
+        
+        <label for="title">Title</label>
+        <input type="text" name="title" required>
+
+        <label for="description">Short Description</label>
+        <textarea name="description" required></textarea>
+
+        <label for="maindescription">Main Description</label>
+        <textarea name="maindescription" required></textarea>
 
         <label for="qualification">Qualification</label>
         <select name="qualification" id="qualification" required>
@@ -29,19 +38,19 @@
             {% for qualification in qualifications %}
                 <option value="{{ qualification.id }}">{{ qualification.name }}</option>
             {% endfor %}
-        </select><br><br>
-        
+        </select>
+
         <label for="subject">Subject</label>
         <select name="subject" id="subject" required>
             <option value="">Select Subject</option>
-        </select><br><br>
+        </select>
 
-        Interested:
-        <select name="interested" id="interested">
+        <label for="interested">Interested</label>
+        <select name="interested" id="interested" required>
             <option value="Job">Job</option>
             <option value="Study">Study</option>
-        </select><br><br>
-        
+        </select>
+
         <input type="submit" value="Add Career">
     </form>
 
@@ -64,5 +73,6 @@
                 });
         });
     </script>
+
 </body>
 </html>

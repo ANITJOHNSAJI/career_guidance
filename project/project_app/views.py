@@ -95,27 +95,35 @@ def add(request):
         title = request.POST.get('title')
         description = request.POST.get('description')
         maindescription = request.POST.get('maindescription')
-        qualification = request.POST.get('qualification')
-        subject = request.POST.get('subject')
+        qualification_id = request.POST.get('qualification')
+        subject_id = request.POST.get('subject')
         interested = request.POST.get('interested')
 
-        qualification_obj = Qualification.objects.get(name=qualification)
-        subject_obj = Subject.objects.get(name=subject)
-        
-        career = Career(
-            title=title,
-            description=description,
-            maindescription=maindescription,
-            qualification=qualification_obj,
-            subject=subject_obj,
-            interested=interested
-        )
-        career.save()
-        
-        return redirect('adminhome')  # After saving, redirect to another page (e.g., course list)
-    else:
-        qualifications = Qualification.objects.all()
-        subjects = Subject.objects.all()
+        try:
+            qualification_obj = Qualification.objects.get(id=qualification_id)
+            subject_obj = Subject.objects.get(id=subject_id)
+
+            career = Career(
+                title=title,
+                description=description,
+                maindescription=maindescription,
+                qualification=qualification_obj,
+                subject=subject_obj,
+                interested=interested
+            )
+            career.save()
+            messages.success(request, "Career added successfully.")
+            return redirect('adminhome')
+
+        except Qualification.DoesNotExist:
+            messages.error(request, "Selected qualification does not exist.")
+        except Subject.DoesNotExist:
+            messages.error(request, "Selected subject does not exist.")
+        except Exception as e:
+            messages.error(request, f"An unexpected error occurred: {e}")
+
+    qualifications = Qualification.objects.all()
+    subjects = Subject.objects.all()
     return render(request, 'add.html', {'qualifications': qualifications, 'subjects': subjects})
 
 def edit(request, id):
@@ -205,20 +213,44 @@ def userform(request):
 
 
 def index(request):
+    filtered_careers = []
+    user_filter = None
+
     if request.user.is_authenticated:
         try:
-            filter = UserCareerFilter.objects.get(user=request.user)
+            user_filter = UserCareerFilter.objects.get(user=request.user)
             careers = Career.objects.filter(
-                qualification=filter.qualification,
-                subject=filter.subject,
-                interested=filter.interested
+                qualification=user_filter.qualification,
+                subject=user_filter.subject,
+                interested=user_filter.interested
             )
+
+            # Get the 'everyone' qualification object
+            everyone_qualification = Qualification.objects.get(name__iexact="everyone")
+
+            if user_filter.interested == "Job":
+                job_subject = Subject.objects.get(name__iexact="Job")
+                filtered_careers = Career.objects.filter(
+                    qualification=everyone_qualification,
+                    subject=job_subject
+                )
+            elif user_filter.interested == "Study":
+                study_subject = Subject.objects.get(name__iexact="Study")
+                filtered_careers = Career.objects.filter(
+                    qualification=everyone_qualification,
+                    subject=study_subject
+                )
+
         except UserCareerFilter.DoesNotExist:
-            return redirect('userform')  # force them to fill filter form
+            return redirect('userform')
     else:
-        careers = Career.objects.all()  # for anonymous users or no login
-    
-    return render(request, "index.html", {"careers": careers})
+        careers = Career.objects.all()
+
+    return render(request, "index.html", {
+        "careers": careers,
+        "filtered_careers": filtered_careers,
+        "user_career_filter": user_filter,
+    })
 
 @login_required(login_url='userlogin')
 def details(request, product_id):
