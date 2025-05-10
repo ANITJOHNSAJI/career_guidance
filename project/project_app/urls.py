@@ -6,15 +6,15 @@ from project_app import views
 
 urlpatterns = [
     path('', views.userlogin, name='userlogin'),
-    path('signup',views.usersignup,name='usersignup'),
-    path('index',views.index,name='index'),
-    path('forgotpassword',views.getusername,name='forgotpassword'),
-    path('verifyotp',views.verifyotp,name='verifyotp'),
-    path('passwordreset',views.passwordreset,name='passwordreset'),
+    path('signup', views.usersignup, name='usersignup'),
+    path('index', views.index, name='index'),
+    path('forgotpassword', views.getusername, name='forgotpassword'),
+    path('verifyotp', views.verifyotp, name='verifyotp'),
+    path('passwordreset', views.passwordreset, name='passwordreset'),
     path('logout/', views.logoutuser, name="logout"),
     path('adminhome/', views.adminhome, name='adminhome'),
     path('userform/', views.userform, name='userform'),
-    path('userlist/',views.userlist,name='userlist'),
+    path('userlist/', views.userlist, name='userlist'),
     path('profile/', views.profile_view, name='profile'),
     path('profile/add-address/', views.add_address, name='add_address'),
     path('profile/edit-address/<int:address_id>/', views.edit_address, name='edit_address'),
@@ -23,7 +23,7 @@ urlpatterns = [
     path('profile/edit-username/', views.edit_username, name='edit_username'),
     path('details/<int:product_id>/', views.details, name='details'),
     path('contact/', views.contact, name='contact'),
-    path('about/',views.about,name='about'),
+    path('about/', views.about, name='about'),
     path('message_list/', views.message_list, name='message_list'),
     path('add-qualification/', views.add_qualification_subjects, name='add-qualification'),
     path('add/', views.add, name='add'),
@@ -34,10 +34,5 @@ urlpatterns = [
     path('edit_subject/<int:pk>/', views.edit_subject, name='edit_subject'),
     path('edit-career/<int:id>/', views.edit, name='edit-career'),
     path('delete-career/<int:id>/', views.delete, name='delete-career'),
-
-
-
-
-   
-  
-]
+    path('download-user-excel/<int:address_id>/', views.download_user_excel, name='download_user_excel'),
+] 

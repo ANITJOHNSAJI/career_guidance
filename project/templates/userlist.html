@@ -8,11 +8,10 @@
 </head>
 <body>
     <nav>
-   
-        <a href="{% url 'adminhome' %}"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+        <a href="{% url 'adminhome' %}"> Home</a>
         <a href="{% url 'message_list' %}">Messages</a>
-        <a href="{% url 'add' %}"><button>Add Career</button></a>
-        <a href="{% url 'logout' %}"><button>Logout</button></a>
+        <a href="{% url 'add' %}">Add Career</a>
+        <a href="{% url 'logout' %}">Logout</a>
     </nav>
     <h2>User List</h2>
     <table>
@@ -22,6 +21,11 @@
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Address</th>
+                <th>Qualification</th>
+                <th>Subject</th>
+                <th>Interested In</th>
+                <th>Additional Details</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -31,12 +35,41 @@
                 <td data-label="Email">{{ address.user.email }}</td>
                 <td data-label="Phone Number">{{ address.phone }}</td>
                 <td data-label="Address">{{ address.address }}</td>
-                
+                <td data-label="Qualification">
+                    {% if address.user.usercareerfilter %}
+                        {{ address.user.usercareerfilter.qualification.name }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+                </td>
+                <td data-label="Subject">
+                    {% if address.user.usercareerfilter and address.user.usercareerfilter.subject %}
+                        {{ address.user.usercareerfilter.subject.name }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+                </td>
+                <td data-label="Interested In">
+                    {% if address.user.usercareerfilter %}
+                        {{ address.user.usercareerfilter.interested }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+                </td>
+                <td data-label="Additional Details">
+                    {% if address.user.usercareerfilter %}
+                        {{ address.user.usercareerfilter.details|default:"None" }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+                </td>
+                <td data-label="Action">
+                    <a href="{% url 'download_user_excel' address.id %}"><button>Download as Excel</button></a>
+                </td>
             </tr>
             {% empty %}
-            <tr><td colspan="4">No users found</td></tr>
+            <tr><td colspan="9">No users found</td></tr>
             {% endfor %}
-            
         </tbody>
     </table>
 </body>
