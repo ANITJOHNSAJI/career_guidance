@@ -214,25 +214,41 @@ def download_all_messages_excel(request):
 
 @login_required
 def userform(request):
+    user_career_filter = UserCareerFilter.objects.filter(user=request.user).first()
     if request.method == 'POST':
         qualification_id = request.POST.get('qualification')
         subject_id = request.POST.get('subject')
         interested = request.POST.get('interested')
         details = request.POST.get('details')
-        qualification = Qualification.objects.get(id=qualification_id)
-        subject = Subject.objects.get(id=subject_id)
-        user_career_filter, created = UserCareerFilter.objects.update_or_create(
-            user=request.user,
-            defaults={
-                'qualification': qualification,
-                'subject': subject,
-                'interested': interested,
-                'details': details,
-            }
-        )
-        return redirect('index')
+        try:
+            qualification = Qualification.objects.get(id=qualification_id)
+            subject = Subject.objects.get(id=subject_id)
+            # Validate that the subject belongs to the selected qualification
+            if subject.qualification != qualification:
+                messages.error(request, "Selected subject does not belong to the chosen qualification.")
+                return redirect('userform')
+            user_career_filter, created = UserCareerFilter.objects.update_or_create(
+                user=request.user,
+                defaults={
+                    'qualification': qualification,
+                    'subject': subject,
+                    'interested': interested,
+                    'details': details,
+                }
+            )
+            messages.success(request, "Career preferences updated successfully!")
+            return redirect('index')
+        except Qualification.DoesNotExist:
+            messages.error(request, "Selected qualification does not exist.")
+            return redirect('userform')
+        except Subject.DoesNotExist:
+            messages.error(request, "Selected subject does not exist.")
+            return redirect('userform')
     qualifications = Qualification.objects.all()
-    return render(request, 'userform.html', {'qualifications': qualifications})
+    return render(request, 'userform.html', {
+        'qualifications': qualifications,
+        'user_career_filter': user_career_filter,
+    })
 
 def index(request):
     filtered_careers = []

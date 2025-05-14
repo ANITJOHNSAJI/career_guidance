@@ -29,6 +29,15 @@
         </div>
     </nav>
 
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p class="{% if message.tags == 'error' %}error-msg{% else %}success-msg{% endif %}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <!-- Form Section -->
     <div class="container form-container">
         <h2>Choose Your Career Preferences</h2>
@@ -39,7 +48,10 @@
                 <select name="qualification" id="qualification" required>
                     <option value="">-- Select Qualification --</option>
                     {% for qualification in qualifications %}
-                        <option value="{{ qualification.id }}">{{ qualification.name }}</option>
+                        <option value="{{ qualification.id }}"
+                                {% if user_career_filter and user_career_filter.qualification.id == qualification.id %}selected{% endif %}>
+                            {{ qualification.name }}
+                        </option>
                     {% endfor %}
                 </select>
             </div>
@@ -49,7 +61,9 @@
                     <option value="">-- Select Subject --</option>
                     {% for qualification in qualifications %}
                         {% for subject in qualification.subject_set.all %}
-                            <option value="{{ subject.id }}" data-qualification="{{ qualification.id }}">
+                            <option value="{{ subject.id }}"
+                                    data-qualification="{{ qualification.id }}"
+                                    {% if user_career_filter and user_career_filter.subject.id == subject.id %}selected{% endif %}>
                                 {{ subject.name }}
                             </option>
                         {% endfor %}
@@ -60,13 +74,15 @@
                 <label for="interested">Interested In</label>
                 <select name="interested" id="interested" required>
                     <option value="">-- Select Option --</option>
-                    <option value="Job">Job</option>
-                    <option value="Study">Study</option>
+                    <option value="Job" {% if user_career_filter and user_career_filter.interested == "Job" %}selected{% endif %}>Job</option>
+                    <option value="Study" {% if user_career_filter and user_career_filter.interested == "Study" %}selected{% endif %}>Study</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="details">Extra Details (Optional)</label>
-                <textarea name="details" id="details" rows="4" placeholder="Any additional information..."></textarea>
+                <textarea name="details" id="details" rows="4" placeholder="Any additional information...">
+                    {% if user_career_filter %}{{ user_career_filter.details|default:"" }}{% endif %}
+                </textarea>
             </div>
             <button type="submit" class="btn">Submit</button>
         </form>
@@ -117,15 +133,36 @@
     <script>
         const qualificationSelect = document.getElementById("qualification");
         const subjectSelect = document.getElementById("subject");
+        const allSubjectOptions = Array.from(subjectSelect.options);
 
         function filterSubjects() {
             const selectedQualification = qualificationSelect.value;
-            Array.from(subjectSelect.options).forEach(option => {
+            // Reset subject dropdown
+            subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
+            
+            // Add only subjects that match the selected qualification
+            allSubjectOptions.forEach(option => {
                 if (!option.value) return; // Skip placeholder
-                option.style.display = option.dataset.qualification === selectedQualification ? "block" : "none";
+                if (option.dataset.qualification === selectedQualification) {
+                    subjectSelect.appendChild(option.cloneNode(true));
+                }
             });
-            subjectSelect.value = ""; // Reset subject
+
+            // Preserve the selected subject if it matches the qualification
+            const selectedSubject = subjectSelect.dataset.selected;
+            if (selectedSubject) {
+                Array.from(subjectSelect.options).forEach(opt => {
+                    if (opt.value === selectedSubject) {
+                        opt.selected = true;
+                    }
+                });
+            }
         }
+
+        // Store the initially selected subject (for editing mode)
+        {% if user_career_filter and user_career_filter.subject %}
+            subjectSelect.dataset.selected = "{{ user_career_filter.subject.id }}";
+        {% endif %}
 
         qualificationSelect.addEventListener("change", filterSubjects);
         window.addEventListener("load", filterSubjects); // Apply filtering on load
