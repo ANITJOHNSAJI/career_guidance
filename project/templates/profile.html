@@ -35,11 +35,10 @@
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
-            <p class="success-msg">{{ message }}</p>
+            <p class="{% if message.tags == 'error' %}error-msg{% else %}success-msg{% endif %}">{{ message }}</p>
         {% endfor %}
     </div>
-{% endif %}
- 
+    {% endif %}
 
     <!-- Profile Content -->
     <div class="container profile-container">
@@ -53,6 +52,13 @@
         <br><br>
         <div class="profile-section">
             <h2>Account Details</h2>
+              {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="success-msg">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
             <div class="profile-card">
                 <p><strong>Email:</strong> {{ email }}</p>
                 <p><strong>Username:</strong> {{ request.user.username }}</p>
@@ -77,29 +83,26 @@
             </div>
         </div>
 
-
-
         <div class="profile-section">
-            <h2>Your Addresses</h2>
-            <a href="{% url 'add_address' %}" class="btn">Add Address</a>
+            <h2>Your Address</h2>
             <div class="address-grid">
-                {% if addresses %}
-                {% for addr in addresses %}
+                {% if address %}
                 <div class="address-card">
-                    <p><strong>{{ addr.name }}</strong><br>
-                        {{ addr.address }}<br>
-                        Phone: {{ addr.phone }}</p>
+                    <p><strong>{{ address.name }}</strong><br>
+                        {{ address.address }}<br>
+                        Phone: {{ address.phone }}</p>
                     <div class="address-actions">
-                        <a href="{% url 'edit_address' addr.id %}" class="btn small">Edit</a>
-                        <a href="{% url 'delete_address' addr.id %}" class="btn small delete">Delete</a>
+                        <a href="{% url 'edit_address' address.id %}" class="btn small">Edit</a>
+                        <a href="{% url 'delete_address' address.id %}" class="btn small delete">Delete</a>
                     </div>
                 </div>
-                {% endfor %}
                 {% else %}
-                <p class="empty-message">No addresses saved yet. Add one to get started.</p>
+                <p class="empty-message">No address saved yet. Add one to get started.</p>
+                <a href="{% url 'add_address' %}" class="btn">Add Address</a>
                 {% endif %}
             </div>
         </div>
+
         <div class="profile-section">
             <h2>Your Career Progress</h2>
             <div class="profile-card">
@@ -154,5 +157,4 @@
         </div>
     </footer>
 </body>
-
 </html>

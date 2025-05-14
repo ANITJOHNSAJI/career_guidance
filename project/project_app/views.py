@@ -15,7 +15,15 @@ from openpyxl import Workbook
 from io import BytesIO
 
 def adminhome(request):
-    careers = Career.objects.all()
+    # Get the filter parameter from the query string (e.g., ?interested=Study)
+    interested_filter = request.GET.get('interested', '')
+    
+    # Fetch careers based on the filter
+    if interested_filter in ['Job', 'Study']:
+        careers = Career.objects.filter(interested=interested_filter)
+    else:
+        careers = Career.objects.all()  # Default: show all careers
+    
     return render(request, 'adminhome.html', {'careers': careers})
 
 def add_qualification_subjects(request):
@@ -295,16 +303,22 @@ def details(request, product_id):
 @login_required
 def profile_view(request):
     user_career_filter = UserCareerFilter.objects.filter(user=request.user).first()
-    addresses = Address.objects.filter(user=request.user)
+    # Fetch only the first address (if any)
+    address = Address.objects.filter(user=request.user).first()
     context = {
-        'addresses': addresses,
+        'address': address,  # Pass a single address instead of a queryset
         'email': request.user.email,
         'user_career_filter': user_career_filter,
     }
     return render(request, 'profile.html', context)
-
 @login_required
 def add_address(request):
+    # Check if the user already has an address
+    existing_address = Address.objects.filter(user=request.user).first()
+    if existing_address:
+        messages.info(request, "You already have an address. You can edit or delete it.")
+        return redirect('edit_address', address_id=existing_address.id)
+
     if request.method == 'POST':
         name = request.POST.get('name', '')
         address = request.POST.get('address', '')
