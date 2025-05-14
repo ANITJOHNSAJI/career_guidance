@@ -1,67 +1,98 @@
-<!-- templates/profile/address_form.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ action }} your address with CareerGuide.">
+    <title>{{ action }} Address | CareerGuide</title>
+    <link rel="stylesheet" href="{% static 'css/address.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Career<span>Guide</span></div>
+            <div class="nav-links">
+                <a href="{% url 'index' %}" title="Home">Home</a>
+                <a href="{% url 'profile' %}" title="Profile">Profile</a>
+                <a href="{% url 'contact' %}" title="Contact">Contact</a>
+                <a href="{% url 'about' %}" title="About">About Us</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" title="Logout">Logout</a>
+                {% else %}
+                    <a href="{% url 'userlogin' %}" title="Login">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
 
-<div class="container mt-5">
-    <h2>{{ action }} Address</h2>
-    <form method="post">
-      {% csrf_token %}
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" name="name" class="form-control" value="{{ name }}">
-        <small class="text-danger">{{ errors.name }}</small>
-      </div>
-      <div class="form-group">
-        <label>Address</label>
-        <textarea name="address" class="form-control">{{ address }}</textarea>
-        <small class="text-danger">{{ errors.address }}</small>
-      </div>
-      <div class="form-group">
-        <label>Phone</label>
-        <input type="text" name="phone" class="form-control" value="{{ phone }}">
-        <small class="text-danger">{{ errors.phone }}</small>
-      </div>
-      <button type="submit" class="btn btn-primary mt-3">{{ action }}</button>
-      <a href="{% url 'profile' %}" class="btn btn-secondary mt-3">Cancel</a>
-    </form>
-     <!-- Footer -->
-     <footer class="footer">
-      <div class="container">
-          <div class="footer-container">
-              <div class="foot-column">
-                  <h3>CareerGuide</h3>
-                  <p>Empowering your future with guided career choices.</p>
-              </div>
-              <div class="foot-column">
-                  <h4>SOLUTIONS</h4>
-                  <ul>
-                      <li>My Account</li>
-                      <li>Track Your Path</li>
-                      <li>Explore Fields</li>
-                      <li>Guidance History</li>
-                  </ul>
-              </div>
-              <div class="foot-column">
-                  <h4>ABOUT</h4>
-                  <ul>
-                      <li>About Us</li>
-                      <li>Terms & Conditions</li>
-                      <li>Privacy Policy</li>
-                      <li>Contact</li>
-                  </ul>
-              </div>
-              <div class="foot-column">
-                  <h4>CONTACT US</h4>
-                  <ul>
-                      <li>Ettumanoor, Kottayam, Kerala</li>
-                      <li>+91-86065 70657</li>
-                      <li>Mon - Sat / 9:00AM - 6:00PM</li>
-                  </ul>
-              </div>
-          </div>
-          <div class="footer-bottom">
-              <p>© 2025 CareerGuide. All rights reserved.</p>
-          </div>
-      </div>
-  </footer>
-  </div>
-  
-  
+    <!-- Form Section -->
+    <div class="container form-container">
+        <h2>{{ action }} Address</h2>
+        <form method="post" class="form-card">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="{{ name }}" required>
+                <small class="text-danger">{{ errors.name }}</small>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="4" required>{{ address }}</textarea>
+                <small class="text-danger">{{ errors.address }}</small>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone" value="{{ phone }}" required>
+                <small class="text-danger">{{ errors.phone }}</small>
+            </div>
+            <button type="submit" class="btn">{{ action }}</button>
+            <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="foot-column">
+                    <h3>CareerGuide</h3>
+                    <p>Empowering your future with guided career choices.</p>
+                </div>
+                <div class="foot-column">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Track Your Path</a></li>
+                        <li><a href="#">Explore Fields</a></li>
+                        <li><a href="#">Guidance History</a></li>
+                    </ul>
+                </div>
+                <div class="foot-column">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="foot-column">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>Ettumanoor, Kottayam, Kerala</li>
+                        <li><a href="tel:+918606570657">+91-86065 70657</a></li>
+                        <li>Mon - Sat / 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 CareerGuide. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -7,19 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div>
-        <form action="" method="post">
-            <h2>User Register</h2>
-            {% csrf_token %}
-            <input type="text" name="username" id="username" placeholder="Username" required>
-            <input type="email" name="email" id="email" placeholder="Email" required>
-            <input type="password" name="password" id="password" placeholder="Password" required>
-            <input type="password" name="confpassword" id="confpassword" placeholder="Confirm Password" required>
-            <input type="submit" value="Submit">
-        </form>
+    <div class="register-container">
+        <div class="register-left">
+            <div class="logo">Career<span>Guide</span></div>
+
+            <h2>Create your free account</h2>
+            <p class="subtext">100% free. No credit card needed.</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confpassword" placeholder="Confirm Password" required>
+                <input type="submit" value="Register">
+            </form>
+
+            <p class="login-link">Already have an account? <a href="{% url 'userlogin' %}">Log in</a></p>
+        </div>
+
+        <div class="register-right">
+            <img src="{% static 'images/career-guidance-2.jpg' %}" alt="Career Image" class="side-image">
+            <h3>Start Your Career Journey</h3>
+            <p>Get expert guidance, explore job opportunities, and connect with professionals. Our platform empowers you to make informed decisions and grow your career confidently.</p>
+        </div>
     </div>
 </body>
 

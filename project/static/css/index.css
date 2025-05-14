@@ -5,24 +5,30 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to right, #f9f7f1, #e3ded7);
-    color: #1f1f1f;
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #272525;
     line-height: 1.6;
 }
 
 /* Container */
 .container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
 }
 
 /* Navigation */
 nav {
-    background-color: #1f1f1f;
+    background: #000000;
     padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .nav-container {
@@ -32,168 +38,246 @@ nav {
 }
 
 .logo {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.8rem;
-    color: #fff;
-    font-weight: bold;
+    font-weight: 700;
+    color: #ffffff;
+    padding-left: 2rem;
 }
 
 .logo span {
-    color: #d4af37;
+    color: #a0a0a0;
 }
 
 .nav-links {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
+    margin-left: auto;
 }
 
 .nav-links a {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
     font-size: 1rem;
-    padding: 0.3rem 0.8rem;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: #d4af37;
+    color: #a0a0a0;
 }
 
-/* Heading */
-h1 {
+/* Hero Section */
+main {
+    background: #0d0d0d;
+    color: #ffffff;
     text-align: center;
-    margin-top: 4rem;
+    padding: 5rem 1.5rem;
+}
+
+.hero-content {
+    padding-top: 4.2rem;
+}
+
+.hero-content h1 {
+    font-family: 'Montserrat', sans-serif;
     font-size: 3rem;
-    color: #1f1f1f;
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    font-weight: 700;
+    margin-bottom: 1.2rem;
 }
 
-/* Carousel Styles */
-.carousel-container {
+.hero-content p {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Hero Image with Text Overlay */
+.hero-image {
     width: 100%;
-    max-width: 1200px;
-    margin: 2rem auto;
-    overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    height: 500px;
+    height: 550px;
+    background: url('../images/newbanner.jpg') no-repeat center center/cover;
+    position: relative;
 }
 
-.carousel {
+.image-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
     display: flex;
-    animation: slide 25s infinite ease-in-out;
-    width: calc(100% * 5); 
+    align-items: center;
 }
 
-.carousel img {
-    width: 100%;
-    height: 500px;
+.image-text {
+    max-width: 500px;
+    margin-left: 5rem;
+    color: #ffffff;
+}
+
+.image-text h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.image-text p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #e0e0e0;
+}
+
+.image-text .btn {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.image-text .btn:hover {
+    background: #a0a0a0;
+    color: #ffffff;
+}
+
+/* How CareerGuide Works Section */
+.how-it-works {
+    background: #ffffff;
+    padding: 4rem 0;
+}
+
+.how-it-works-container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.how-it-works-text {
+    flex: 1;
+    color: #272525;
+}
+
+.how-it-works-text h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+.how-it-works-text p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #4a4a4a;
+}
+
+.how-it-works-text .btn {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.how-it-works-text .btn:hover {
+    background: #333333;
+}
+
+.how-it-works-image {
+    flex: 0 0 400px;
+}
+
+.how-it-works-image img {
+    width: 600px;
+    height: 400px;
     object-fit: cover;
-    flex-shrink: 0;
-    transition: transform 0.5s ease;
-}
-
-@keyframes slide {
-    0%, 15% { transform: translateX(0); }
-    20%, 35% { transform: translateX(-100%); }
-    40%, 55% { transform: translateX(-200%); }
-    60%, 75% { transform: translateX(-300%); }
-    80%, 100% { transform: translateX(-400%); }
-}
-
-/* Responsive Carousel */
-@media (max-width: 768px) {
-    .carousel-container {
-        height: 300px;
-    }
-
-    .carousel img {
-        height: 300px;
-    }
-
-    h1 {
-        font-size: 2.2rem;
-    }
-
-    .nav-container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-links {
-        margin-top: 1rem;
-    }
-
-    .footer-container {
-        grid-template-columns: 1fr;
-    }
+    border-radius: 10px;
 }
 
 /* Courses Container */
 .courses-container {
+    padding: 4rem 1.5rem;
+    background: #f8f8f8;
+    padding-top: calc(4rem + 4.2rem);
+}
+
+.courses-container h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #1a1a1a;
+}
+
+.course-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
-    padding: 4rem 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .course-card {
-    background-color: #ffffff;
-    border-radius: 15px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
     padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .course-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.course-card h2 {
-    font-family: 'Playfair Display', serif;
+.course-card h3 {
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
     margin-bottom: 1rem;
-    color: #1f1f1f;
 }
 
 .course-card p {
     font-size: 1rem;
-    color: #444;
+    color: #4a4a4a;
     margin-bottom: 1.5rem;
 }
 
-.course-actions .btn {
+.course-card .btn {
     display: inline-block;
-    background-color: #1f1f1f;
+    background: #000000;
     color: #ffffff;
-    padding: 0.5rem 1.2rem;
-    border-radius: 25px;
-    font-size: 0.95rem;
+    padding: 0.7rem 1.8rem;
+    border-radius: 6px;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    font-weight: 500;
+    transition: background 0.3s ease;
 }
 
-.course-actions .btn:hover {
-    background-color: #d4af37;
-    color: #1f1f1f;
+.course-card .btn:hover {
+    background: #333333;
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    grid-column: 1 / -1;
 }
 
 /* Footer */
 .footer {
-    background-color: #1f1f1f;
-    color: #f0f0f0;
-    padding: 3rem 1rem 2rem 1rem;
-    margin-top: 5rem;
-}
-
-.footer .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    background: #000000;
+    color: #ffffff;
+    padding: 4rem 1.5rem 2rem;
+    padding-top: calc(4rem + 4.2rem);
 }
 
 .footer-container {
@@ -202,27 +286,223 @@ h1 {
     gap: 2rem;
 }
 
-.foot-column h4,
 .foot-column h3 {
-    margin-bottom: 1rem;
-    color: #d4af37;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.2rem;
+}
+
+.foot-column h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
     font-weight: 600;
-    font-family: 'Playfair Display', serif;
+    color: #ffffff;
+    margin-bottom: 1.2rem;
 }
 
 .foot-column ul {
     list-style: none;
-    padding: 0;
 }
 
 .foot-column ul li {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.8rem;
     font-size: 0.95rem;
+    color: #a0a0a0;
+}
+
+.foot-column ul li a {
+    color: #a0a0a0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.foot-column ul li a:hover {
+    color: #ffffff;
 }
 
 .footer-bottom {
     text-align: center;
-    margin-top: 2rem;
-    font-size: 0.85rem;
-    color: #aaaaaa;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #a0a0a0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-image {
+        height: 400px;
+    }
+
+    .image-text {
+        margin-left: 2rem;
+        max-width: 400px;
+    }
+
+    .image-text h2 {
+        font-size: 2rem;
+    }
+
+    .image-text p {
+        font-size: 1rem;
+    }
+
+    .how-it-works-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .how-it-works-text h2 {
+        font-size: 2rem;
+    }
+
+    .how-it-works-text p {
+        font-size: 1rem;
+    }
+
+    .how-it-works-image {
+        flex: 0 0 300px;
+    }
+
+    .how-it-works-image img {
+        height: 300px;
+    }
+
+    .contact-container h1 {
+        font-size: 2.2rem;
+    }
+
+    .contact-intro {
+        font-size: 1rem;
+    }
+
+    .contact-form {
+        padding: 1.5rem;
+    }
+
+    .courses-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .course-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .logo {
+        padding-left: 1.5rem;
+    }
+
+    .hero-content {
+        padding-top: 3.5rem;
+    }
+
+    .courses-container {
+        padding-top: calc(3rem + 3.5rem);
+    }
+
+    .footer {
+        padding-top: calc(3rem + 3.5rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .logo {
+        padding-left: 1rem;
+    }
+
+    .hero-image {
+        height: 350px;
+    }
+
+    .image-text {
+        margin: 0 auto;
+        text-align: center;
+        padding: 1rem;
+        max-width: 90%;
+    }
+
+    .image-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .how-it-works-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .how-it-works-image {
+        flex: 0 0 250px;
+    }
+
+    .how-it-works-image img {
+        height: 250px;
+    }
+
+    .contact-container {
+        padding: 3rem 1rem;
+        padding-top: calc(3rem + 5rem);
+    }
+
+    .contact-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .contact-form {
+        padding: 1.2rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 0.95rem;
+    }
+
+    .contact-form .btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content {
+        padding-top: 5rem;
+    }
+
+    .courses-container {
+        padding-top: calc(3rem + 5rem);
+    }
+
+    .footer {
+        padding-top: calc(3rem + 5rem);
+    }
 }

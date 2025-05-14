@@ -1,193 +1,164 @@
-/* General Reset */
+/* Base Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
-body {
-    font-family: 'Helvetica Neue', sans-serif;
-    background: linear-gradient(135deg, #34e89e 0%, #0f3443 100%); /* Fresh green to deep teal gradient */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+html, body {
+    font-family: 'Inter', sans-serif;
     height: 100vh;
-    overflow: hidden;
-    color: #fff;
+    background-color: #ffffff;
+    color: #1a1a1a;
 }
 
-/* Title Styling */
-h2 {
-    font-size: 3.5rem;
-    background: linear-gradient(90deg, #1de9b6, #00bfae); /* Teal to turquoise gradient */
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 6px;
-    margin-bottom: 50px;
-    font-weight: bold;
-    position: relative;
-    animation: textGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes textGlow {
-    0% {
-        text-shadow: 0 0 15px rgba(52, 232, 158, 0.5), 0 0 30px rgba(52, 232, 158, 0.7);
-    }
-    100% {
-        text-shadow: 0 0 30px rgba(52, 232, 158, 1), 0 0 60px rgba(52, 232, 158, 0.9);
-    }
-}
-
-/* Container */
-div {
-    background: rgba(255, 255, 255, 0.95); /* Light background with opacity */
-    padding: 40px 50px;
-    border-radius: 15px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+/* Container layout */
+.register-container {
+    display: flex;
+    height: 100%;
     width: 100%;
-    max-width: 600px; /* Increased width from 400px to 600px */
-    animation: slideIn 1s ease-out;
 }
 
-/* Form Styling */
-form {
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #000000;
+    padding-left: 0;
+    margin-bottom: 40px;
+}
+
+.logo span {
+    color: #a0a0a0;
+}
+
+/* Left (Form) */
+.register-left {
+    flex: 1;
+    padding: 60px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
-}
-
-/* Input Fields Styling */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #0f3443; /* Dark teal border */
-    font-size: 1rem;
-    background-color: #e1f1e8; /* Light mint background */
-    color: #333;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
-    border-color: #34e89e; /* Green color on focus */
+    justify-content: center;
     background-color: #ffffff;
-    box-shadow: 0 6px 20px rgba(52, 232, 158, 0.3);
+    max-width: 600px;
+}
+
+.register-left .logo img {
+    width: 140px;
+    margin-bottom: 30px;
+}
+
+.register-left h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.subtext {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: none;
+    border-bottom: 2px solid #dcdcdc;
+    background: #fafafa;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+form input:focus {
+    border-color: #000;
+    background: #fff;
     outline: none;
 }
 
-/* Submit Button Styling */
-input[type="submit"] {
-    padding: 15px;
-    font-size: 1.2rem;
+form input[type="submit"] {
+    background-color: #000000;
+    color: #fff;
+    padding: 12px;
+    width: 100%;
     border: none;
-    background-color: #34e89e; /* Soft green */
-    color: white;
-    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 10px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
 }
 
-input[type="submit"]:hover {
-    background-color: #28b57b; /* Darker green on hover */
-    transform: translateY(-4px);
+form input[type="submit"]:hover {
+    background-color: #333333;
 }
 
-input[type="submit"]:active {
-    transform: translateY(2px);
+.login-link {
+    margin-top: 18px;
+    font-size: 14px;
+    color: #666;
 }
 
-/* Links Styling */
-a {
+.login-link a {
+    color: #000000;
     text-decoration: none;
-    color: #0f3443; /* Dark teal */
-    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Right Side */
+.register-right {
+    flex: 1;
+    background-color: #f8f8f8;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    display: block;
-    margin-top: 20px;
-    transition: color 0.3s ease;
-    font-weight: bold;
 }
 
-a:hover {
-    color: #34e89e; /* Green color on hover */
+.register-right .side-image {
+    width: 260px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 30px;
 }
 
-/* Error Message Styling */
-p {
-    color: #f44336; /* Bright Red for error */
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 15px;
-    opacity: 0;
-    animation: fadeIn 2s ease-out forwards;
+.register-right h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* Keyframes for Animations */
-@keyframes textGlow {
-    0% {
-        text-shadow: 0 0 15px rgba(52, 232, 158, 0.5), 0 0 30px rgba(52, 232, 158, 0.7);
-    }
-    100% {
-        text-shadow: 0 0 30px rgba(52, 232, 158, 1), 0 0 60px rgba(52, 232, 158, 0.9);
-    }
+.register-right p {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    max-width: 400px;
 }
 
-@keyframes slideIn {
-    0% {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 600px) {
-    h2 {
-        font-size: 2.5rem;
+/* Responsive */
+@media (max-width: 900px) {
+    .register-container {
+        flex-direction: column;
+        height: auto;
     }
 
-    div {
+    .register-left, .register-right {
+        width: 100%;
         padding: 30px;
-        width: 90%;
     }
 
-    input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
-        padding: 12px;
-    }
-
-    a {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 400px) {
-    h2 {
-        font-size: 2rem;
-    }
-
-    div {
-        padding: 20px;
+    .register-right {
+        order: -1;
     }
 }

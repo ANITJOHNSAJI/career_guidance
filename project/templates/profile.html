@@ -1,66 +1,116 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <meta name="description" content="Manage your CareerGuide profile and personalize your career journey.">
+    <title>User Profile | CareerGuide</title>
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <!-- Navigation Bar -->
     <nav>
         <div class="container nav-container">
             <div class="logo">Career<span>Guide</span></div>
             <div class="nav-links">
-                <a href="{% url 'index' %}"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
-                <a href="{% url 'contact' %}"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+                <a href="{% url 'index' %}" title="Home">Home</a>
+                <a href="{% url 'profile' %}" title="Profile">Profile</a>
+                <a href="{% url 'contact' %}" title="Contact">Contact</a>
                 <a href="{% url 'about' %}" title="About">About Us</a>
+                {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}" title="Logout">Logout</a>
+                {% else %}
+                <a href="{% url 'userlogin' %}" title="Login">Login</a>
+                {% endif %}
             </div>
         </div>
-    </nav> 
+    </nav>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p class="success-msg">{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+ 
 
-    <div class="container">
-        <h2>User Profile</h2>
-        
-        <!-- User Email -->
-        <p><strong>Email:</strong> {{ email }} <a href="{% url 'edit_email' %}" class="btn"><button>Edit</button></a></p>
-        
-        <!-- Username -->
-        <p><strong>Username:</strong> {{ request.user.username }} <a href="{% url 'edit_username' %}" class="btn"><button>Edit</button></a></p>
+    <!-- Profile Content -->
+    <div class="container profile-container">
+        <h1>Welcome, {{ request.user.username|title }}!</h1>
+        <p class="profile-intro">
+            Your CareerGuide profile is your personal hub for shaping a rewarding career. Update your preferences to
+            unlock tailored job and course recommendations, manage your addresses for seamless communication, and track
+            your progress toward your professional goals. Stay in control and take confident steps toward a future that
+            aligns with your passions and aspirations.
+        </p>
+        <br><br>
+        <div class="profile-section">
+            <h2>Account Details</h2>
+            <div class="profile-card">
+                <p><strong>Email:</strong> {{ email }}</p>
+                <p><strong>Username:</strong> {{ request.user.username }}</p>
+                <a href="{% url 'edit_email' %}" class="btn">Edit Email</a>
+                <a href="{% url 'edit_username' %}" class="btn">Edit Username</a>
+            </div>
+        </div>
 
-        <!-- Career Preferences -->
-        <h3 class="mt-4">Career Preferences</h3>
-        {% if user_career_filter %}
-            <p><strong>Qualification:</strong> {{ user_career_filter.qualification.name }}</p>
-            <p><strong>Subject:</strong> {{ user_career_filter.subject.name }}</p>
-            <p><strong>Interested In:</strong> {{ user_career_filter.interested }}</p>
-            <p><strong>Additional Details:</strong> {{ user_career_filter.details }}</p>
-            <a href="{% url 'userform' %}" class="btn"><button>Edit Career Preferences</button></a>
-        {% else %}
-            <p>No career preferences set yet. <a href="{% url 'userform' %}" class="btn"><button>Set Preferences</button></a></p>
-        {% endif %}
+        <div class="profile-section">
+            <h2>Career Preferences</h2>
+            <div class="profile-card">
+                {% if user_career_filter %}
+                <p><strong>Qualification:</strong> {{ user_career_filter.qualification.name }}</p>
+                <p><strong>Subject:</strong> {{ user_career_filter.subject.name }}</p>
+                <p><strong>Interested In:</strong> {{ user_career_filter.interested }}</p>
+                <p><strong>Additional Details:</strong> {{ user_career_filter.details }}</p>
+                <a href="{% url 'userform' %}" class="btn">Edit Preferences</a>
+                {% else %}
+                <p>No career preferences set yet. Get started to unlock personalized recommendations!</p>
+                <a href="{% url 'userform' %}" class="btn">Set Preferences</a>
+                {% endif %}
+            </div>
+        </div>
 
-        <!-- User Addresses -->
-        <h3 class=>Addresses</h3>
-        <a href="{% url 'add_address' %}" class="btn"><button>Add Address</button></a>
 
-        {% if addresses %}
-            <ul class="list-group">
+
+        <div class="profile-section">
+            <h2>Your Addresses</h2>
+            <a href="{% url 'add_address' %}" class="btn">Add Address</a>
+            <div class="address-grid">
+                {% if addresses %}
                 {% for addr in addresses %}
-                    <li class="list-group-item">
-                        <strong>{{ addr.name }}</strong><br>
+                <div class="address-card">
+                    <p><strong>{{ addr.name }}</strong><br>
                         {{ addr.address }}<br>
-                        Phone: {{ addr.phone }}<br>
-                        <a href="{% url 'edit_address' addr.id %}" class="btn"><button>Edit</button></a>
-                        <a href="{% url 'delete_address' addr.id %}" class="btn"><button>Delete</button></a>
-                    </li>
+                        Phone: {{ addr.phone }}</p>
+                    <div class="address-actions">
+                        <a href="{% url 'edit_address' addr.id %}" class="btn small">Edit</a>
+                        <a href="{% url 'delete_address' addr.id %}" class="btn small delete">Delete</a>
+                    </div>
+                </div>
                 {% endfor %}
-            </ul>
-        {% else %}
-            <p>No addresses saved yet.</p>
-        {% endif %}
+                {% else %}
+                <p class="empty-message">No addresses saved yet. Add one to get started.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="profile-section">
+            <h2>Your Career Progress</h2>
+            <div class="profile-card">
+                <p>
+                    Track your journey with CareerGuide! Here, you can view your recent activity, such as career
+                    recommendations explored, profile updates, and saved addresses. Keep engaging with our platform to
+                    receive insights and resources that propel you toward your dream career.
+                </p>
+                <a href="{% url 'profile' %}" class="btn">View Activity</a>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -72,29 +122,29 @@
                     <p>Empowering your future with guided career choices.</p>
                 </div>
                 <div class="foot-column">
-                    <h4>SOLUTIONS</h4>
+                    <h4>Solutions</h4>
                     <ul>
-                        <li>My Account</li>
-                        <li>Track Your Path</li>
-                        <li>Explore Fields</li>
-                        <li>Guidance History</li>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Track Your Path</a></li>
+                        <li><a href="#">Explore Fields</a></li>
+                        <li><a href="#">Guidance History</a></li>
                     </ul>
                 </div>
                 <div class="foot-column">
-                    <h4>ABOUT</h4>
+                    <h4>About</h4>
                     <ul>
-                        <li>About Us</li>
-                        <li>Terms & Conditions</li>
-                        <li>Privacy Policy</li>
-                        <li>Contact</li>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </div>
                 <div class="foot-column">
-                    <h4>CONTACT US</h4>
+                    <h4>Contact Us</h4>
                     <ul>
                         <li>Ettumanoor, Kottayam, Kerala</li>
-                        <li>+91-86065 70657</li>
-                        <li>Mon - Sat / 9:00AM - 6:00PM</li>
+                        <li><a href="tel:+918606570657">+91-86065 70657</a></li>
+                        <li>Mon - Sat / 9:00 AM - 6:00 PM</li>
                     </ul>
                 </div>
             </div>
@@ -104,4 +154,5 @@
         </div>
     </footer>
 </body>
+
 </html>

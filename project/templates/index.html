@@ -8,76 +8,94 @@
     <title>Career Guidance</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <!-- Navigation Bar -->
     <nav>
         <div class="container nav-container">
             <div class="logo">Career<span>Guide</span></div>
             <div class="nav-links">
+                <a href="{% url 'index' %}" title="Home">Home</a>
                 <a href="{% url 'profile' %}" title="Profile">Profile</a>
-                <a href="{% url 'contact' %}" title="Contact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+                <a href="{% url 'contact' %}" title="Contact">Contact</a>
                 <a href="{% url 'about' %}" title="About">About Us</a>
                 {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" title="Logout">Logout</a>
+                    <a href="{% url 'logout' %}" title="Logout">Logout</a>
                 {% else %}
-                <a href="{% url 'userlogin' %}" title="Login">Login</a>
+                    <a href="{% url 'userlogin' %}" title="Login">Login</a>
                 {% endif %}
             </div>
         </div>
     </nav>
 
-    <!-- Welcome Section -->
+    <!-- Hero Section -->
     <main>
-        <h1>Welcome to Your Career Compass</h1>
+        <div class="hero-content">
+            <h1>Welcome to Your Career Compass</h1>
+            <p>Discover personalized career paths tailored to your interests and aspirations.</p>
+        </div>
     </main>
 
-    <!-- Carousel Section -->
-    <div class="carousel-container">
-        <div class="carousel">
-            <img src="{% static 'images/caro3.avif' %}" alt="Career journey">
-            <img src="{% static 'images/caro4.avif' %}" alt="Learning process">
-            <img src="{% static 'images/caro5.avif' %}" alt="Future planning">
-            <img src="{% static 'images/caro6.avif' %}" alt="Educational tools">
-            <img src="{% static 'images/caro7.jpg' %}" alt="Student success">
+    <!-- Hero Image with Text Overlay -->
+    <section class="hero-image">
+        <div class="image-overlay">
+            <div class="image-text">
+                <h2>Your Path to Success</h2>
+                <p>CareerGuide empowers you to explore diverse career options, align your passions with opportunities, and build a fulfilling future with personalized insights and resources.</p>
+                <a href="{% url 'profile' %}" class="btn">Start Your Journey</a>
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Personalized Career Matches -->
-    <div class="courses-container">
+    <section class="courses-container">
         <h2>Careers Matched to Your Profile</h2>
-        {% for career in careers %}
-        <div class="course-card">
-            <h2>{{ career.title }}</h2>
-            <p>{{ career.description }}</p>
-            <div class="course-actions">
-                <a href="{% url 'details' career.id %}" class="btn">View</a>
-            </div>
-        </div>
-        {% empty %}
-        <p>No personalized career matches found. Update your interests in your profile.</p>
-        {% endfor %}
-    </div>
-
-    <!-- General Recommendations Based on Interest -->
-    <div class="courses-container2">
-        {% if user_career_filter %}
-            <h2>Recommended for You: {{ user_career_filter.interested|title }}</h2>
-            {% for career in filtered_careers %}
+        <div class="course-grid">
+            {% for career in careers %}
             <div class="course-card">
-                <h2>{{ career.title }}</h2>
-                <p>{{ career.description }}</p>
-                <div class="course-actions">
-                    <a href="{% url 'details' career.id %}" class="btn">View</a>
-                </div>
+                <h3>{{ career.title }}</h3>
+                <p>{{ career.description|truncatechars:120 }}</p>
+                <a href="{% url 'details' career.id %}" class="btn">Explore Now</a>
             </div>
             {% empty %}
-            <p>No matching careers found in this category.</p>
+            <p class="empty-message">No personalized career matches found. Update your interests in your profile.</p>
             {% endfor %}
-        {% endif %}
-    </div>
+        </div>
+    </section>
+
+    <!-- How CareerGuide Works Section -->
+    <section class="how-it-works">
+        <div class="container how-it-works-container">
+            <div class="how-it-works-text">
+                <h2>How CareerGuide Works</h2>
+                <p>We simplify your career journey in three easy steps: First, complete your profile with your interests and skills. Next, explore personalized career recommendations tailored just for you. Finally, access resources and expert advice to take confident steps toward your dream career.</p>
+                <a href="{% url 'about' %}" class="btn">Discover More</a>
+            </div>
+            <div class="how-it-works-image">
+                <img src="{% static 'images/bg1.jpg' %}" alt="Career Guidance Illustration">
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- General Recommendations Based on Interest -->
+    {% if user_career_filter %}
+    <section class="courses-container">
+        <h2>Recommended for {{ user_career_filter.interested|title }}</h2>
+        <div class="course-grid">
+            {% for career in filtered_careers %}
+            <div class="course-card">
+                <h3>{{ career.title }}</h3>
+                <p>{{ career.description|truncatechars:120 }}</p>
+                <a href="{% url 'details' career.id %}" class="btn">Explore Now</a>
+            </div>
+            {% empty %}
+            <p class="empty-message">No matching careers found in this category.</p>
+            {% endfor %}
+        </div>
+    </section>  
+    {% endif %}
 
     <!-- Footer -->
     <footer class="footer">
@@ -88,29 +106,29 @@
                     <p>Empowering your future with guided career choices.</p>
                 </div>
                 <div class="foot-column">
-                    <h4>SOLUTIONS</h4>
+                    <h4>Solutions</h4>
                     <ul>
-                        <li>My Account</li>
-                        <li>Track Your Path</li>
-                        <li>Explore Fields</li>
-                        <li>Guidance History</li>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Track Your Path</a></li>
+                        <li><a href="#">Explore Fields</a></li>
+                        <li><a href="#">Guidance History</a></li>
                     </ul>
                 </div>
                 <div class="foot-column">
-                    <h4>ABOUT</h4>
+                    <h4>About</h4>
                     <ul>
-                        <li>About Us</li>
-                        <li>Terms & Conditions</li>
-                        <li>Privacy Policy</li>
-                        <li>Contact</li>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </div>
                 <div class="foot-column">
-                    <h4>CONTACT US</h4>
+                    <h4>Contact Us</h4>
                     <ul>
                         <li>Ettumanoor, Kottayam, Kerala</li>
-                        <li>+91-86065 70657</li>
-                        <li>Mon - Sat / 9:00AM - 6:00PM</li>
+                        <li><a href="tel:+918606570657">+91-86065 70657</a></li>
+                        <li>Mon - Sat / 9:00 AM - 6:00 PM</li>
                     </ul>
                 </div>
             </div>
@@ -119,6 +137,5 @@
             </div>
         </div>
     </footer>
-
 </body>
 </html>

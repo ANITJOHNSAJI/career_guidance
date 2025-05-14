@@ -1,137 +1,167 @@
-/* General Reset */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
-body {
-    font-family: 'Helvetica Neue', sans-serif;
-    background: linear-gradient(135deg, #34e89e 0%, #0f3443 100%); /* Fresh green to deep teal gradient */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-    color: #fff;
-}
-
-/* Title Styling */
-h2 {
-    font-size: 3.5rem;
-    background: linear-gradient(90deg, #1de9b6, #00bfae); /* Teal to turquoise gradient */
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 6px;
-    margin-bottom: 50px;
-    font-weight: bold;
-    position: relative;
-    animation: textGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes textGlow {
-    0% {
-        text-shadow: 0 0 15px rgba(52, 232, 158, 0.5), 0 0 30px rgba(52, 232, 158, 0.7);
-    }
-    100% {
-        text-shadow: 0 0 30px rgba(52, 232, 158, 1), 0 0 60px rgba(52, 232, 158, 0.9);
-    }
-}
-
-/* Container Styling */
-form {
-    background: rgba(255, 255, 255, 0.95); /* Light background with opacity */
-    padding: 40px 50px;
-    border-radius: 15px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+body, html {
     width: 100%;
-    max-width: 600px; /* Increased width */
-    animation: slideIn 1s ease-out;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.container {
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+/* Form Section */
+.form-section {
+    background: #ffffff;
+    flex: 1;
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    justify-content: center;
+    position: relative;
 }
 
-/* Input Fields Styling */
-input[type="text"] {
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #0f3443; /* Dark teal border */
-    font-size: 1rem;
-    background-color: #e1f1e8; /* Light mint background */
-    color: #333;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 20px;
 }
 
-input[type="text"]:focus {
-    border-color: #34e89e; /* Green color on focus */
-    background-color: #ffffff;
-    box-shadow: 0 6px 20px rgba(52, 232, 158, 0.3);
+.logo span {
+    color: #a0a0a0;
+}
+
+.form-icon {
+    width: 60px;
+    margin: 0 auto 20px auto;
+}
+
+.form-icon img {
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: #1a1a1a;
+}
+
+.subtext {
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #f9f9f9;
+    transition: border 0.3s ease;
+}
+
+form input:focus {
+    border-color: #000000;
+    background: #ffffff;
     outline: none;
 }
 
-/* Submit Button Styling */
-input[type="submit"] {
-    padding: 15px;
-    font-size: 1.2rem;
-    border: none;
-    background-color: #34e89e; /* Soft green */
+form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #000000;
     color: white;
-    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-radius: 6px;
+    margin-top: 10px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
-input[type="submit"]:hover {
-    background-color: #28b57b; /* Darker green on hover */
-    transform: translateY(-4px);
+form input[type="submit"]:hover {
+    background-color: #333333;
 }
 
-input[type="submit"]:active {
-    transform: translateY(2px);
+/* Image Section */
+.image-section {
+    flex: 1;
+    background-image: url("../images/istockphoto-1605083334-612x612.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
 }
 
-/* Keyframes for Animations */
-@keyframes slideIn {
-    0% {
-        transform: translateY(50px);
-        opacity: 0;
+.image-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.image-section .info {
+    text-align: center;
+    max-width: 300px;
+    z-index: 2;
+    color: #ffffff;
+}
+
+.image-section h3 {
+    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.image-section p {
+    font-size: 14px;
+    color: #f0f0f0;
+    line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
     }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
 
-/* Media Queries for Responsiveness */
-@media (max-width: 600px) {
-    h2 {
-        font-size: 2.5rem;
+    .image-section {
+        display: none;
     }
 
-    form {
+    .form-section {
         padding: 30px;
-        width: 90%;
-    }
-
-    input[type="text"], input[type="submit"] {
-        padding: 12px;
-    }
-}
-
-@media (max-width: 400px) {
-    h2 {
-        font-size: 2rem;
-    }
-
-    form {
-        padding: 20px;
     }
 }

@@ -1,58 +1,46 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP Form</title>
+    <title>OTP Verification - CareerGuide</title>
     <link rel="stylesheet" href="{% static 'css/otp.css' %}">
 </head>
+
 <body>
-    <form action="" method="post">
-        <h2>Enter Your OTP</h2>
-        {% csrf_token %}
-        <input type="number" name="otp" id="otp" placeholder="Enter OTP">
-        <input type="submit" value="Submit">
-    </form>
-     <!-- Footer -->
-     <footer class="footer">
-        <div class="container">
-            <div class="footer-container">
-                <div class="foot-column">
-                    <h3>CareerGuide</h3>
-                    <p>Empowering your future with guided career choices.</p>
-                </div>
-                <div class="foot-column">
-                    <h4>SOLUTIONS</h4>
-                    <ul>
-                        <li>My Account</li>
-                        <li>Track Your Path</li>
-                        <li>Explore Fields</li>
-                        <li>Guidance History</li>
-                    </ul>
-                </div>
-                <div class="foot-column">
-                    <h4>ABOUT</h4>
-                    <ul>
-                        <li>About Us</li>
-                        <li>Terms & Conditions</li>
-                        <li>Privacy Policy</li>
-                        <li>Contact</li>
-                    </ul>
-                </div>
-                <div class="foot-column">
-                    <h4>CONTACT US</h4>
-                    <ul>
-                        <li>Ettumanoor, Kottayam, Kerala</li>
-                        <li>+91-86065 70657</li>
-                        <li>Mon - Sat / 9:00AM - 6:00PM</li>
-                    </ul>
-                </div>
+    <div class="container">
+        <!-- OTP Form Section -->
+        <div class="form-section">
+            <div class="logo">Career<span>Guide</span></div>
+
+            <div class="form-icon">
+                <img src="{% static 'images/PngItem_2738719.png' %}" alt="OTP Icon">
             </div>
-            <div class="footer-bottom">
-                <p>© 2025 CareerGuide. All rights reserved.</p>
+
+            <h2>Enter OTP</h2>
+            <p class="subtext">We've sent an OTP to your registered email.</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="number" name="otp" placeholder="Enter OTP" required>
+                <input type="submit" value="Verify OTP">
+            </form>
+
+            {% if result %}
+            <p class="error">{{ result }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Background Image Section -->
+        <div class="image-section">
+            <div class="info">
+                <h3>Secure Access</h3>
+                <p>Confirm your identity and continue exploring personalized career guidance and tools.</p>
             </div>
         </div>
-    </footer>
+    </div>
 </body>
+
 </html>

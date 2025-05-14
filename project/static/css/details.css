@@ -1,184 +1,423 @@
-
-/* Global Styles */
-
+/* Reset */
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
+}
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #272525;
     line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #337ab7;
-  }
-  
-  a:hover {
-    color: #23527c;
-  }
-  
-  /* Navigation */
-  
-  nav {
-    background-color: #333;
-    color: #fff;
-    padding: 1em;
-    text-align: center;
-  }
-  
-  nav .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  nav .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  nav .nav-links {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  nav .nav-links a {
-    color: #fff;
-    margin-left: 20px;
-  }
-  
-  nav .nav-links a:hover {
-    color: #ccc;
-  }
-  
-  /* Course Details */
-  
-  .course-details {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .course-details h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-  }
-  
-  .course-details h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-  }
-  
-  .course-details p {
-    margin-bottom: 20px;
-  }
-  
-  /* Contact Form */
-  
-  .contact-form {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .contact-form label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .contact-form input[type="text"], .contact-form input[type="email"] {
+}
+
+/* Container */
+.container {
     width: 100%;
-    height: 40px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  .contact-form textarea {
-    width: 100%;
-    height: 100px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  .contact-form button[type="submit"] {
-    background-color: #337ab7;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .contact-form button[type="submit"]:hover {
-    background-color: #23527c;
-  }
-  
-  /* Footer */
-  
-  .footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .footer .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .footer .foot-column {
-    margin-right: 20px;
-  }
-  
-  .footer .foot-column h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
-  
-  .footer .foot-column h4 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  
-  .footer .foot-column ul {
-    list-style: none;
+    max-width: 100%;
     padding: 0;
     margin: 0;
-  }
-  
-  .footer .foot-column li {
-    margin-bottom: 10px;
-  }
-  
-  .footer .footer-bottom {
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #444;
-  }
-  
-  .footer .footer-bottom p {
-    font-size: 0.9em;
-    color: #666;
-  }
+}
+
+/* Navigation */
+nav {
+    background: #000000;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    padding-left: 1rem;
+}
+
+.logo span {
+    color: #a0a0a0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    margin-left: auto;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #a0a0a0;
+}
+
+/* Hero Image with Text Overlay */
+.hero-image {
+    width: 100%;
+    height: 550px;
+    background: url('../images/WebsiteBanner-Career.jpg') no-repeat center center/cover;
+    position: relative;
+    margin-top: 4.2rem;
+}
+
+.image-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.image-text {
+    max-width: 600px;
+    margin-left: 2rem;
+    color: #ffffff;
+    padding: 1rem;
+}
+
+.image-text h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.image-text p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #e0e0e0;
+}
+
+.image-text .btn {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.image-text .btn:hover {
+    background: #a0a0a0;
+    color: #ffffff;
+}
+
+/* Career Details Section */
+.details-container {
+    padding: 2rem 0;
+    background: #ffffff;
+    padding-top: calc(2rem + 4.2rem);
+}
+
+.details-container h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+.details-intro {
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: #4a4a4a;
+    padding: 0 1.5rem;
+}
+
+.details-card {
+    background: #ffffff;
+    margin: 2rem 0;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.details-card.overview {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 2rem 1.5rem;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.details-card h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+}
+
+.details-card p {
+    font-size: 1rem;
+    color: #4a4a4a;
+    margin-bottom: 1.5rem;
+}
+
+.details-card ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 1.5rem;
+}
+
+.details-card ul li {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.details-card .btn {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    transition: background 0.3s ease;
+}
+
+.details-card .btn:hover {
+    background: #333333;
+}
+
+/* Why Choose This Career Section */
+.why-choose-career {
+    background: #f8f8f8;
+    padding: 4rem 0;
+}
+
+.why-choose-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.why-choose-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.why-choose-text h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+}
+
+.why-choose-text p {
+    font-size: 1.1rem;
+    color: #4a4a4a;
+}
+
+.why-choose-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.why-choose-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Footer */
+.footer {
+    background: #000000;
+    color: #ffffff;
+    padding: 4rem 0 2rem;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.foot-column h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.2rem;
+}
+
+.foot-column h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1.2rem;
+}
+
+.foot-column ul {
+    list-style: none;
+}
+
+.foot-column ul li {
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    color: #a0a0a0;
+}
+
+.foot-column ul li a {
+    color: #a0a0a0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.foot-column ul li a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #a0a0a0;
+    padding: 0 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+
+    .details-container h1 {
+        font-size: 2.2rem;
+    }
+
+    .details-intro {
+        font-size: 1rem;
+    }
+
+    .details-card {
+        padding: 1.5rem;
+    }
+
+    .details-card.overview {
+        padding: 1.5rem;
+    }
+
+    .details-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .logo {
+        padding-left: 1.5rem;
+    }
+
+    .details-container {
+        padding-top: calc(2rem + 3.5rem);
+    }
+
+    .image-text {
+        margin-left: 1.5rem;
+    }
+
+    .why-choose-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links a {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .logo {
+        padding-left: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .details-container {
+        padding: 1.5rem 0;
+        padding-top: calc(1.5rem + 5rem);
+    }
+
+    .details-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .details-card {
+        padding: 1.2rem;
+    }
+
+    .details-card.overview {
+        padding: 1.2rem;
+    }
+
+    .details-card p {
+        font-size: 0.95rem;
+    }
+
+    .details-card .btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .image-text {
+        margin-left: 1rem;
+    }
+
+    .image-text h2 {
+        font-size: 2rem;
+    }
+
+    .image-text p {
+        font-size: 1rem;
+    }
+
+    .why-choose-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .why-choose-text p {
+        font-size: 1rem;
+    }
+}

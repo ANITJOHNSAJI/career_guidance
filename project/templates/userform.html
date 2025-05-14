@@ -3,67 +3,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Career Filter Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Choose your career preferences with CareerGuide.">
+    <title>User Career Filter Form | CareerGuide</title>
     <link rel="stylesheet" href="{% static 'css/userform.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav>
         <div class="container nav-container">
             <div class="logo">Career<span>Guide</span></div>
             <div class="nav-links">
+                <a href="{% url 'index' %}" title="Home">Home</a>
                 <a href="{% url 'profile' %}" title="Profile">Profile</a>
-                <a href="{% url 'contact' %}" title="Contact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+                <a href="{% url 'contact' %}" title="Contact">Contact</a>
                 <a href="{% url 'about' %}" title="About">About Us</a>
                 {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" title="Logout">Logout</a>
+                    <a href="{% url 'logout' %}" title="Logout">Logout</a>
                 {% else %}
-                <a href="{% url 'userlogin' %}" title="Login">Login</a>
+                    <a href="{% url 'userlogin' %}" title="Login">Login</a>
                 {% endif %}
             </div>
         </div>
     </nav>
-    <h2>Choose Your Career Preferences</h2>
 
-    <form method="post">
-        {% csrf_token %}
+    <!-- Form Section -->
+    <div class="container form-container">
+        <h2>Choose Your Career Preferences</h2>
+        <form method="post" class="form-card">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="qualification">Qualification</label>
+                <select name="qualification" id="qualification" required>
+                    <option value="">-- Select Qualification --</option>
+                    {% for qualification in qualifications %}
+                        <option value="{{ qualification.id }}">{{ qualification.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <select name="subject" id="subject" required>
+                    <option value="">-- Select Subject --</option>
+                    {% for qualification in qualifications %}
+                        {% for subject in qualification.subject_set.all %}
+                            <option value="{{ subject.id }}" data-qualification="{{ qualification.id }}">
+                                {{ subject.name }}
+                            </option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="interested">Interested In</label>
+                <select name="interested" id="interested" required>
+                    <option value="">-- Select Option --</option>
+                    <option value="Job">Job</option>
+                    <option value="Study">Study</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="details">Extra Details (Optional)</label>
+                <textarea name="details" id="details" rows="4" placeholder="Any additional information..."></textarea>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
 
-        <!-- Qualification -->
-        <label for="qualification">Qualification:</label>
-        <select name="qualification" id="qualification" required>
-            <option value="">-- Select Qualification --</option>
-            {% for qualification in qualifications %}
-                <option value="{{ qualification.id }}">{{ qualification.name }}</option>
-            {% endfor %}
-        </select>
-
-        <!-- Subject (filtered by qualification) -->
-        <label for="subject">Subject:</label>
-        <select name="subject" id="subject" required>
-            <option value="">-- Select Subject --</option>
-            {% for qualification in qualifications %}
-                {% for subject in qualification.subject_set.all %}
-                    <option value="{{ subject.id }}" data-qualification="{{ qualification.id }}">
-                        {{ subject.name }}
-                    </option>
-                {% endfor %}
-            {% endfor %}
-        </select>
-
-        <!-- Interested field -->
-        <label for="interested">Interested In:</label>
-        <select name="interested" id="interested" required>
-            <option value="">-- Select Option --</option>
-            <option value="Job">Job</option>
-            <option value="Study">Study</option>
-        </select>
-
-        <!-- Optional details -->
-        <label for="details">Extra Details (Optional):</label>
-        <textarea name="details" id="details" rows="4" placeholder="Any additional information..."></textarea>
-
-        <!-- Submit -->
-        <input type="submit" value="Submit">
-    </form>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="foot-column">
+                    <h3>CareerGuide</h3>
+                    <p>Empowering your future with guided career choices.</p>
+                </div>
+                <div class="foot-column">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Track Your Path</a></li>
+                        <li><a href="#">Explore Fields</a></li>
+                        <li><a href="#">Guidance History</a></li>
+                    </ul>
+                </div>
+                <div class="foot-column">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="foot-column">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>Ettumanoor, Kottayam, Kerala</li>
+                        <li><a href="tel:+918606570657">+91-86065 70657</a></li>
+                        <li>Mon - Sat / 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 CareerGuide. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- JavaScript for subject filtering -->
     <script>
@@ -73,7 +121,7 @@
         function filterSubjects() {
             const selectedQualification = qualificationSelect.value;
             Array.from(subjectSelect.options).forEach(option => {
-                if (!option.value) return;  // Skip placeholder
+                if (!option.value) return; // Skip placeholder
                 option.style.display = option.dataset.qualification === selectedQualification ? "block" : "none";
             });
             subjectSelect.value = ""; // Reset subject

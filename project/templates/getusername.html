@@ -1,59 +1,40 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- Link to external CSS file using Django's static tag -->
+    <title>Forgot Username - CareerGuide</title>
     <link rel="stylesheet" href="{% static 'css/getusername.css' %}">
 </head>
+
 <body>
-    <form action="" method="post">
-        <h2>Enter Your Username</h2>
-        {% csrf_token %}
-        <input type="text" name="username" id="username" placeholder="Username">
-        <input type="submit" value="Submit">
-    </form>
-     <!-- Footer -->
-     <footer class="footer">
-        <div class="container">
-            <div class="footer-container">
-                <div class="foot-column">
-                    <h3>CareerGuide</h3>
-                    <p>Empowering your future with guided career choices.</p>
-                </div>
-                <div class="foot-column">
-                    <h4>SOLUTIONS</h4>
-                    <ul>
-                        <li>My Account</li>
-                        <li>Track Your Path</li>
-                        <li>Explore Fields</li>
-                        <li>Guidance History</li>
-                    </ul>
-                </div>
-                <div class="foot-column">
-                    <h4>ABOUT</h4>
-                    <ul>
-                        <li>About Us</li>
-                        <li>Terms & Conditions</li>
-                        <li>Privacy Policy</li>
-                        <li>Contact</li>
-                    </ul>
-                </div>
-                <div class="foot-column">
-                    <h4>CONTACT US</h4>
-                    <ul>
-                        <li>Ettumanoor, Kottayam, Kerala</li>
-                        <li>+91-86065 70657</li>
-                        <li>Mon - Sat / 9:00AM - 6:00PM</li>
-                    </ul>
-                </div>
+    <div class="container">
+        <div class="form-section">
+            <div class="logo">Career<span>Guide</span></div>
+
+            <div class="form-icon">
+                <img src="{% static 'images/PngItem_2738719.png' %}" alt="Icon">
             </div>
-            <div class="footer-bottom">
-                <p>© 2025 CareerGuide. All rights reserved.</p>
+
+            <h2>Forgot Your Password?</h2>
+            <p class="subtext">Enter your username to receive password reset instructions.</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Enter your username" required>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+         <div class="image-section">
+            <div class="info">
+                <h3>Stay on Track</h3>
+                <p>We’re here to help you get back into your account and continue your journey toward career success.</p>
             </div>
         </div>
-    </footer>
+    </div>
 </body>
+
 </html>

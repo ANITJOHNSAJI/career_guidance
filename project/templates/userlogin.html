@@ -1,26 +1,60 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ecommerce</title>
+    <title>User Login - CareerGuide</title>
     <link rel="stylesheet" href="{% static 'css/userlogin.css' %}">
 </head>
-<body>
-    <div>
-        <h1>User login</h1>
 
-        <form method="post">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="username">
-            <input type="password" name="password" placeholder="password">
-            <input type="submit" value="submit" placeholder="submit">
-        </form>
-        <a href="{% url 'forgotpassword' %}">forgotpassword</a>
-        <a href="{% url 'usersignup' %}">signup</a>
-        <p>{{ result }}</p> 
+<body>
+    <div class="container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="success-msg">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+        <div class="form-section">
+            <div class="logo">Career<span>Guide</span></div>
+
+            <div class="form-icon">
+                <img src="{% static 'images/PngItem_2738719.png' %}" alt="Login Icon">
+            </div>
+
+            <h2>Welcome Back!</h2>
+            <p class="subtext">Login to continue your journey with us</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+
+            <div class="links">
+                <a href="{% url 'forgotpassword' %}">Forgot Password?</a>
+                <span> | </span>
+                <a href="{% url 'usersignup' %}">Sign up</a>
+            </div>
+
+            {% if result %}
+            <p class="error">{{ result }}</p>
+            {% endif %}
+        </div>
+
+        <div class="image-section">
+            <div class="info">
+                <h3>Career Success Awaits</h3>
+                <p>Unlock your career potential with personalized guidance, resources, and tools curated just for you.
+                </p>
+            </div>
+        </div>
+
     </div>
-  
 </body>
+
 </html>
