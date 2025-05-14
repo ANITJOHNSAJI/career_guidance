@@ -35,4 +35,5 @@ urlpatterns = [
     path('edit-career/<int:id>/', views.edit, name='edit-career'),
     path('delete-career/<int:id>/', views.delete, name='delete-career'),
     path('download-all-users-excel/', views.download_all_users_excel, name='download_all_users_excel'),
+    path('download-all-messages-excel/', views.download_all_messages_excel, name='download_all_messages_excel'),
 ] 

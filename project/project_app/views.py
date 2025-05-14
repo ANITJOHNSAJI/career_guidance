@@ -186,6 +186,33 @@ def message_list(request):
     return render(request, 'message.html', {'messages': messages})
 
 @login_required
+def download_all_messages_excel(request):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "All_Messages_Details"
+    headers = ['Name', 'Email', 'Message', 'Submitted At']
+    ws.append(headers)
+
+    messages = ContactMessage.objects.all().order_by('-submitted_at')
+    for msg in messages:
+        ws.append([
+            msg.name,
+            msg.email,
+            msg.message,
+            msg.submitted_at.strftime('%Y-%m-%d %H:%M'),  # Format datetime for Excel
+        ])
+
+    output = BytesIO()
+    wb.save(output)
+    output.seek(0)
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        content=output.getvalue(),
+    )
+    response['Content-Disposition'] = 'attachment; filename="all_messages_details.xlsx"'
+    return response
+
+@login_required
 def userform(request):
     if request.method == 'POST':
         qualification_id = request.POST.get('qualification')
