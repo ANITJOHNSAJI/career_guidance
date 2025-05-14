@@ -34,5 +34,5 @@ urlpatterns = [
     path('edit_subject/<int:pk>/', views.edit_subject, name='edit_subject'),
     path('edit-career/<int:id>/', views.edit, name='edit-career'),
     path('delete-career/<int:id>/', views.delete, name='delete-career'),
-    path('download-user-excel/<int:address_id>/', views.download_user_excel, name='download_user_excel'),
+    path('download-all-users-excel/', views.download_all_users_excel, name='download_all_users_excel'),
 ] 

@@ -70,7 +70,6 @@ def delete_qualification(request, pk):
 def delete_subject(request, pk):
     subject = get_object_or_404(Subject, pk=pk)
     subject.delete()
-    seasaw
     return redirect('add-qualification')
 
 def add(request):
@@ -142,10 +141,46 @@ def get_subjects(request, qualification_id):
     data = {'subjects': [{'id': s.id, 'name': s.name} for s in subjects]}
     return JsonResponse(data)
 
+@login_required
 def userlist(request):
-    addresses = Address.objects.select_related('user').prefetch_related('user__usercareerfilter')
-    return render(request, 'userlist.html', {'addresses': addresses})
+    # Fetch all users except superusers, prefetch related data
+    users = User.objects.filter(is_superuser=False).prefetch_related('address_set', 'usercareerfilter')
+    return render(request, 'userlist.html', {'users': users})
 
+@login_required
+def download_all_users_excel(request):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "All_Users_Details"
+    headers = ['Username', 'Email', 'Phone Number', 'Address', 'Qualification', 'Subject', 'Interested In', 'Additional Details']
+    ws.append(headers)
+
+    # Fetch all users except superusers, prefetch related data
+    users = User.objects.filter(is_superuser=False).prefetch_related('address_set', 'usercareerfilter')
+    for user in users:
+        # Get the first address or None
+        address = user.address_set.first()
+        user_career_filter = getattr(user, 'usercareerfilter', None)
+        ws.append([
+            user.username,
+            user.email,
+            address.phone if address else 'Not specified',
+            address.address if address else 'Not specified',
+            user_career_filter.qualification.name if user_career_filter and user_career_filter.qualification else 'Not specified',
+            user_career_filter.subject.name if user_career_filter and user_career_filter.subject else 'Not specified',
+            user_career_filter.interested if user_career_filter else 'Not specified',
+            user_career_filter.details if user_career_filter else 'Not specified'
+        ])
+
+    output = BytesIO()
+    wb.save(output)
+    output.seek(0)
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        content=output.getvalue(),
+    )
+    response['Content-Disposition'] = 'attachment; filename="all_users_details.xlsx"'
+    return response
 def message_list(request):
     messages = ContactMessage.objects.all().order_by('-submitted_at')
     return render(request, 'message.html', {'messages': messages})
@@ -463,32 +498,3 @@ def passwordreset(request):
                 return redirect('getusername')
     return render(request, "passwordreset.html")
 
-@login_required
-def download_user_excel(request, address_id):
-    address = get_object_or_404(Address, id=address_id)
-    user = address.user
-    wb = Workbook()
-    ws = wb.active
-    ws.title = f"{user.username}_Details"
-    headers = ['Username', 'Email', 'Phone Number', 'Address', 'Qualification', 'Subject', 'Interested In', 'Additional Details']
-    ws.append(headers)
-    user_career_filter = UserCareerFilter.objects.filter(user=user).first()
-    ws.append([
-        user.username,
-        user.email,
-        address.phone,
-        address.address,
-        user_career_filter.qualification.name if user_career_filter and user_career_filter.qualification else 'Not specified',
-        user_career_filter.subject.name if user_career_filter and user_career_filter.subject else 'Not specified',
-        user_career_filter.interested if user_career_filter else 'Not specified',
-        user_career_filter.details if user_career_filter else 'Not specified'
-    ])
-    output = BytesIO()
-    wb.save(output)
-    output.seek(0)
-    response = HttpResponse(
-        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        content=output.getvalue(),
-    )
-    response['Content-Disposition'] = f'attachment; filename="{user.username}_details.xlsx"'
-    return response
