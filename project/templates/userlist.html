@@ -3,88 +3,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User List | CareerGuide</title>
     <link rel="stylesheet" href="{% static 'css/admin/userlist.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav>
-        <a href="{% url 'adminhome' %}"> Home</a>
-        <a href="{% url 'message_list' %}">Messages</a>
-          <a href="{% url 'add-qualification' %}">Add Qualification</a> 
-        <a href="{% url 'add' %}">Add Career</a>
-        <a href="{% url 'logout' %}">Logout</a>
-    </nav>
-    <h2>User List</h2>
-    <div>
-        <a href="{% url 'download_all_users_excel' %}"><button>Download All Users as Excel</button></a>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Address</th>
-                <th>Qualification</th>
-                <th>Subject</th>
-                <th>Interested In</th>
-                <th>Additional Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            {% with address=user.address_set.first %}
-            <tr>
-                <td data-label="Username">{{ user.username }}</td>
-                <td data-label="Email">{{ user.email }}</td>
-                <td data-label="Phone Number">
-                    {% if address %}
-                        {{ address.phone }}
-                    {% else %}
-                        Not specified
-                    {% endif %}
-                </td>
-                <td data-label="Address">
-                    {% if address %}
-                        {{ address.address }}
-                    {% else %}
-                        Not specified
-                    {% endif %}
-                </td>
-                <td data-label="Qualification">
-                    {% if user.usercareerfilter and user.usercareerfilter.qualification %}
-                        {{ user.usercareerfilter.qualification.name }}
-                    {% else %}
-                        Not specified
-                    {% endif %}
-                </td>
-                <td data-label="Subject">
-                    {% if user.usercareerfilter and user.usercareerfilter.subject %}
-                        {{ user.usercareerfilter.subject.name }}
-                    {% else %}
-                        Not specified
-                    {% endif %}
-                </td>
-                <td data-label="Interested In">
-                    {% if user.usercareerfilter %}
-                        {{ user.usercareerfilter.interested }}
-                    {% else %}
-                        Not specified
-                    {% endif %}
-                </td>
-                <td data-label="Additional Details">
-                    {% if user.usercareerfilter %}
-                        {{ user.usercareerfilter.details|default:"None" }}
-                    {% else %}
-                        Not specified
-                    {% endif %}
-                </td>
-            </tr>
-            {% endwith %}
-            {% empty %}
-            <tr><td colspan="8">No users found</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">Career<span>Guide</span></div>
+        <nav class="sidebar-nav">
+            <a href="{% url 'adminhome' %}">Home</a>
+            <a href="{% url 'add-qualification' %}">Add Qualification</a>
+            <a href="{% url 'add' %}">Add Career</a>
+            <a href="{% url 'userlist' %}">User List</a>
+            <a href="{% url 'message_list' %}">Messages</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <h1>User List</h1>
+
+        <div class="download-container">
+            <a href="{% url 'download_all_users_excel' %}"><button>Download All Users as Excel</button></a>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Address</th>
+                        <th>Qualification</th>
+                        <th>Subject</th>
+                        <th>Interested In</th>
+                        <th>Additional Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    {% with address=user.address_set.first %}
+                    <tr>
+                        <td data-label="Username">{{ user.username }}</td>
+                        <td data-label="Email">{{ user.email }}</td>
+                        <td data-label="Phone Number">
+                            {% if address %}
+                                {{ address.phone }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </td>
+                        <td data-label="Address">
+                            {% if address %}
+                                {{ address.address }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </td>
+                        <td data-label="Qualification">
+                            {% if user.usercareerfilter and user.usercareerfilter.qualification %}
+                                {{ user.usercareerfilter.qualification.name }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </td>
+                        <td data-label="Subject">
+                            {% if user.usercareerfilter and user.usercareerfilter.subject %}
+                                {{ user.usercareerfilter.subject.name }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </td>
+                        <td data-label="Interested In">
+                            {% if user.usercareerfilter %}
+                                {{ user.usercareerfilter.interested }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </td>
+                        <td data-label="Additional Details">
+                            {% if user.usercareerfilter %}
+                                {{ user.usercareerfilter.details|default:"None" }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endwith %}
+                    {% empty %}
+                    <tr><td colspan="8" class="empty-message">No users found</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>

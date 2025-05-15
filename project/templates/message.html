@@ -3,41 +3,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Messages | Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Messages | CareerGuide</title>
     <link rel="stylesheet" href="{% static 'css/admin/message.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
- <nav>
-      <a href="{% url 'add-qualification' %}">Add Qualification</a> 
-        <a href="{% url 'add' %}">Add Career</a>
-    <a href="{% url 'userlist' %}">User List</a>
-    <a href="{% url 'logout' %}">Logout</a>
- </nav>
-    <h1>User Contact Messages</h1>
-    <div>
-        <a href="{% url 'download_all_messages_excel' %}"><button>Download All Messages as Excel</button></a>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Message</th>
-                <th>Submitted At</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for msg in messages %}
-            <tr>
-                <td data-label="Name">{{ msg.name }}</td>
-                <td data-label="Email">{{ msg.email }}</td>
-                <td data-label="Message">{{ msg.message }}</td>
-                <td data-label="Submitted At">{{ msg.submitted_at|date:"Y-m-d H:i" }}</td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="4">No messages found.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">Career<span>Guide</span></div>
+        <nav class="sidebar-nav">
+            <a href="{% url 'adminhome' %}">Home</a>
+            <a href="{% url 'add-qualification' %}">Add Qualification</a>
+            <a href="{% url 'add' %}">Add Career</a>
+            <a href="{% url 'userlist' %}">User List</a>
+            <a href="{% url 'message_list' %}">Messages</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <h1>User Contact Messages</h1>
+
+        <div class="download-container">
+            <a href="{% url 'download_all_messages_excel' %}"><button>Download All Messages as Excel</button></a>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Submitted At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for msg in messages %}
+                    <tr>
+                        <td data-label="Name">{{ msg.name }}</td>
+                        <td data-label="Email">{{ msg.email }}</td>
+                        <td data-label="Message">{{ msg.message }}</td>
+                        <td data-label="Submitted At">{{ msg.submitted_at|date:"Y-m-d H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4" class="empty-message">No messages found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>

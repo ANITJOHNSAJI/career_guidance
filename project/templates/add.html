@@ -4,55 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Career</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <title>Add Career | CareerGuide</title>
     <link rel="stylesheet" href="{% static 'css/admin/add.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">Career<span>Guide</span></div>
+        <nav class="sidebar-nav">
+            <a href="{% url 'adminhome' %}">Home</a>
+            <a href="{% url 'add-qualification' %}">Add Qualification</a>
+            <a href="{% url 'add' %}">Add Career</a>
+            <a href="{% url 'userlist' %}">User List</a>
+            <a href="{% url 'message_list' %}">Messages</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </aside>
 
-    <nav>
-        <a href="{% url 'adminhome' %}"><button>Home</button></a>
-        <a href="{% url 'add-qualification' %}"><button>Add Qualification</button></a> 
-        <a href="{% url 'message_list' %}"><button>Messages</button></a>
-        <a href="{% url 'userlist' %}"><button>User List</button></a>
-        <a href="{% url 'logout' %}"><button>Logout</button></a>
-    </nav>
+    <!-- Main Content -->
+    <main>
+        <h1>Add Career</h1>
 
-    <h1>Add Career</h1>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" required>
 
-    <form method="POST">
-        {% csrf_token %}
-        
-        <label for="title">Title</label>
-        <input type="text" name="title" required>
+            <label for="description">Short Description</label>
+            <textarea name="description" id="description" required></textarea>
 
-        <label for="description">Short Description</label>
-        <textarea name="description" required></textarea>
+            <label for="maindescription">Main Description</label>
+            <textarea name="maindescription" id="maindescription" required></textarea>
 
-        <label for="maindescription">Main Description</label>
-        <textarea name="maindescription" required></textarea>
+            <label for="qualification">Qualification</label>
+            <select name="qualification" id="qualification" required>
+                <option value="">Select Qualification</option>
+                {% for qualification in qualifications %}
+                    <option value="{{ qualification.id }}">{{ qualification.name }}</option>
+                {% endfor %}
+            </select>
 
-        <label for="qualification">Qualification</label>
-        <select name="qualification" id="qualification" required>
-            <option value="">Select Qualification</option>
-            {% for qualification in qualifications %}
-                <option value="{{ qualification.id }}">{{ qualification.name }}</option>
-            {% endfor %}
-        </select>
+            <label for="subject">Subject</label>
+            <select name="subject" id="subject" required>
+                <option value="">Select Subject</option>
+            </select>
 
-        <label for="subject">Subject</label>
-        <select name="subject" id="subject" required>
-            <option value="">Select Subject</option>
-        </select>
+            <label for="interested">Interested</label>
+            <select name="interested" id="interested" required>
+                <option value="Job">Job</option>
+                <option value="Study">Study</option>
+            </select>
 
-        <label for="interested">Interested</label>
-        <select name="interested" id="interested" required>
-            <option value="Job">Job</option>
-            <option value="Study">Study</option>
-        </select>
-
-        <input type="submit" value="Add Career">
-    </form>
+            <button type="submit">Add Career</button>
+        </form>
+    </main>
 
     <script>
         document.getElementById('qualification').addEventListener('change', function () {
@@ -73,6 +80,5 @@
                 });
         });
     </script>
-
 </body>
 </html>
