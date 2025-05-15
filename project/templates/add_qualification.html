@@ -23,6 +23,14 @@
 
     <!-- Main Content -->
     <main>
+                 {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="success-msg">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
         <h1>Add Qualification and Subjects</h1>
 
         <form method="post">
